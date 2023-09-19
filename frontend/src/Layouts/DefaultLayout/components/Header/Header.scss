@@ -8,6 +8,7 @@
     align-items: center;
     height: 7.5rem;
     border-bottom: 0.1rem solid var(--black);
+    z-index: 10000;
 
     &.on-scroll {
         background-color: var(--white);

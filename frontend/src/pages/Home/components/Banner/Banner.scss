@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+.banner__wrapper {
+    position: relative;
+    background-color: var(--yellow);
+    border-bottom: 0.1rem solid var(--black);
+}
+
+div.banner__container {
+    display: flex;
+    height: 45.5rem;
+    align-items: center;
+}
+
+.banner__content {
+    h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 10.6rem;
+        margin-bottom: 6.8rem;
+    }
+
+    p {
+        margin-bottom: 5rem;
+        font-size: 2.4rem;
+        font-weight: 400;
+        line-height: 2.4rem;
+        color: var(--text-color);
+    }
+
+    button {
+        font-size: 2rem;
+        padding: 0.8rem 2rem;
+        width: 21.3rem;
+    }
+}
+
+.banner__img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+//Responsive for tablet devices
+@media (min-width: 740px) and (max-width: 1023px) {
+    .banner__content {
+        width: 50rem;
+
+        h2 {
+            font-size: 8.5rem;
+        }
+    }
+
+    .banner__img {
+        left: 42rem;
+    }
+}
+
+//Responsive for mobile devices
+@media (max-width: 739px) {
+    div.banner__container {
+        height: 100%;
+    }
+    .banner__content {
+        padding: 9.3rem 0;
+        h2 {
+            font-size: 7rem;
+            line-height: 7.4rem;
+        }
+    }
+
+    .banner__img {
+        display: none;
+    }
+}

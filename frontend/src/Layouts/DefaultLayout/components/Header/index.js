@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import { Container } from '@mui/system';
+import { Button } from '@mui/material';
 
 import './Header.scss';
-import Image from '@/components/Image';
 import images from '@/assets/images';
+
+import Image from '@/components/Image';
 import MainButton from '@/components/MainButton';
-import { Container } from '@mui/system';
-import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
 
 const Header = () => {
     const navbarList = [
@@ -54,7 +57,7 @@ const Header = () => {
             }`}
         >
             <Container
-                maxWidth="lg"
+                maxWidth={MAX_WIDTH_DEFAULT_LAYOUT}
                 sx={{
                     paddingY: 3,
                     display: 'flex',
