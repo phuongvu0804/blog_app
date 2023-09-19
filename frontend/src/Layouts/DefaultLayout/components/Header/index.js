@@ -9,7 +9,24 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 const Header = () => {
-    const navbarList = ['Blogs', 'Users', 'Write', 'Sign In'];
+    const navbarList = [
+        {
+            name: 'Blogs',
+            link: '/blogs',
+        },
+        {
+            name: 'Users',
+            link: '/users',
+        },
+        {
+            name: 'Write',
+            link: '/write',
+        },
+        {
+            name: 'Sign In',
+            link: '/sign-in',
+        },
+    ];
 
     const [onScroll, setOnScroll] = useState(false);
 
@@ -60,10 +77,11 @@ const Header = () => {
                     {navbarList.map((item, index) => (
                         <Button
                             component={Link}
+                            to={item.link}
                             key={index}
                             className="default-layout__navbar-item"
                         >
-                            {item}
+                            {item.name}
                         </Button>
                     ))}
                     <MainButton className="default-layout__navbar-button">
