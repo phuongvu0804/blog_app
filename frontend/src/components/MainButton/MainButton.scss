@@ -1,0 +1,11 @@
+.main-button {
+    --padding-y: 0.8rem;
+    font-weight: 400;
+    color: var(--white);
+    background-color: var(--text-color);
+    border-color: transparent;
+    border-radius: 99em;
+    padding-top: var(--padding-y);
+    padding-bottom: var(--padding-y);
+    cursor: pointer;
+}
