@@ -1,0 +1,69 @@
+.trending-list__container {
+    padding: 4rem 0 1.6rem;
+    border-bottom: 0.1rem solid #f2f2f2;
+
+    h2 {
+        display: flex;
+        align-items: center;
+        svg {
+            font-size: 2rem;
+            border: 0.1rem solid var(--black);
+            border-radius: 50%;
+            opacity: 0.8;
+            margin-right: 1rem;
+        }
+    }
+
+    a {
+        color: var(--text-color);
+        text-decoration: none;
+    }
+}
+
+div.trending-list__item {
+    display: flex;
+    margin-bottom: 2.4rem;
+    padding: 0 1.6rem;
+}
+
+.trending-item__no {
+    margin-right: 1.6rem;
+    font-size: 3.2rem;
+    font-weight: 500;
+    letter-spacing: -0.014em;
+    color: #f2f2f2;
+}
+
+.trending-item__wrapper {
+    font-size: 1.4rem;
+}
+
+.trending-item__author,
+.trending-item__like {
+    display: flex;
+    align-items: center;
+}
+
+.trending-item__author {
+    .trending-item__author-icon {
+        font-size: 2rem;
+    }
+}
+
+.trending-item__author-name {
+    margin-left: 0.8rem;
+    font-weight: 500;
+}
+
+.trending-item__title {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0.8rem 0;
+}
+
+.trending-item__date,
+.trending-item__like {
+    color: var(--gray);
+    line-height: 2rem;
+}

@@ -1,17 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
 
 import App from './App';
 import GlobalStyles from '@/components/GlobalStyles';
+import blogReducer from '@/reducers/blogReducer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const store = configureStore({
+    reducer: {
+        blogs: blogReducer,
+    },
+});
+
 root.render(
     <React.StrictMode>
         <Router>
-            <GlobalStyles>
-                <App />
-            </GlobalStyles>
+            <Provider store={store}>
+                <GlobalStyles>
+                    <App />
+                </GlobalStyles>
+            </Provider>
         </Router>
     </React.StrictMode>,
 );
