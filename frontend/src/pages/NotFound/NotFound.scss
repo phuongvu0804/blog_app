@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display&display=swap');
+
+.not-found {
+    position: relative;
+    header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6.5rem;
+        display: flex;
+        align-items: center;
+        background-color: var(--white);
+        box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
+        z-index: 100;
+    }
+}
+
+.not-found__logo {
+    height: 2.5rem;
+}
+
+div.not-found__wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+}
+
+.not-found__left,
+.not-found__right {
+    padding: 0 2rem;
+}
+
+.not-found__left {
+    flex: 1;
+    img {
+        width: 45rem;
+        height: 45rem;
+    }
+}
+
+.not-found__right {
+    flex: 1;
+    p,
+    span,
+    a {
+        margin-bottom: 1.1rem;
+    }
+}
+
+.not-found__title {
+    font-size: 1.8rem;
+    font-weight: 300;
+}
+
+.not-found__main {
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+
+    p {
+        display: block;
+    }
+
+    p:nth-child(1) {
+        font-size: 15.2rem;
+        color: #0000004d;
+    }
+
+    p:nth-child(2) {
+        font-size: 6.6rem;
+        color: #000000d6;
+    }
+}
+.not-found__text,
+.not-found__link {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.not-found__text {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.4rem;
+}
+
+.not-found__link {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+@media (max-width: 1023px) {
+    .not-found__main {
+        p {
+            text-align: center;
+        }
+
+        p:nth-child(1) {
+            font-size: 9.2rem;
+            line-height: 104px;
+        }
+
+        p:nth-child(2) {
+            font-size: 3.4rem;
+        }
+    }
+
+    .not-found__text,
+    .not-found__link {
+        font-size: 1.4rem;
+    }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .not-found__left {
+        img {
+            width: 30.3rem;
+            height: 30.3rem;
+        }
+    }
+
+    .not-found__title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 739px) {
+    div.not-found__wrapper {
+        margin-top: 1.5rem;
+        margin-bottom: 4rem;
+    }
+
+    .not-found__right,
+    .not-found__main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .not-found__right {
+        p {
+            text-align: center;
+        }
+    }
+
+    p.not-found__title {
+        font-size: 1.6rem;
+        margin-bottom: 0;
+    }
+}

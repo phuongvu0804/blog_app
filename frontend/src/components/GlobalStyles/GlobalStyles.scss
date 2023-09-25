@@ -36,3 +36,19 @@ body {
     line-height: 2rem;
     color: var(--text-color);
 }
+
+.hide-on-pc {
+    display: none !important;
+}
+
+@media (min-width: 740px) {
+    .hide-on-tablet-pc {
+        display: none !important;
+    }
+}
+
+@media (max-width: 739px) {
+    .hide-on-mobile {
+        display: none !important;
+    }
+}
