@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import blogService from '@/services/blog';
+import { setNoti } from './notiReducer';
 
 const blogSlice = createSlice({
     name: 'blog',
@@ -12,13 +13,17 @@ const blogSlice = createSlice({
     },
 });
 
-export const initializeBlogs = (handleError) => {
+export const initializeBlogs = () => {
     return async (dispatch) => {
         try {
             const blogs = await blogService.getAll();
             dispatch(setBlog(blogs));
         } catch (err) {
-            handleError(err);
+            console.log('err initializeBlogs', err);
+            setNoti({
+                content: err.response.data.error,
+                type: 'error',
+            });
         }
     };
 };

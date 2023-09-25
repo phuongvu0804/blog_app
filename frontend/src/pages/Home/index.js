@@ -5,12 +5,38 @@ import { Box } from '@mui/material';
 
 import { HEADER_HEIGHT_DEFAULT_LAYOUT } from '@/constants';
 import './Home.scss';
+import { initializeBlogs } from '@/reducers/blogReducer';
+import RecommendationList from './components/RecommendationList';
 
 import Banner from './components/Banner';
 import TrendingList from './components/TrendingList';
-import { initializeBlogs } from '@/reducers/blogReducer';
 
 const Home = () => {
+    const recommendationTopics = [
+        'Programming',
+        'Data Science',
+        'Technology',
+        'Self Improvement',
+        'Writing',
+        'Relationships',
+        'Machine Learning',
+        'Productivity',
+        'Politics',
+    ];
+
+    const footerList = [
+        'Help',
+        'Status',
+        'Writer',
+        'Blog',
+        'Careers',
+        'Privacy',
+        'Terms',
+        'About',
+        'Text to speech',
+        'Terms',
+    ];
+
     const dispatch = useDispatch();
     const blogs = useSelector((state) => state.blogs);
     const [trendingBlogs, setTrendingBlogs] = useState([]);
@@ -44,6 +70,11 @@ const Home = () => {
             <Box sx={{ height: HEADER_HEIGHT_DEFAULT_LAYOUT }} />
             <Banner />
             <TrendingList data={trendingBlogs} />
+            <RecommendationList
+                blogList={blogs}
+                recommendationTopics={recommendationTopics}
+                footerList={footerList}
+            />
         </div>
     );
 };

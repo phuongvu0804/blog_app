@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import { Box, Container } from '@mui/system';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { Grid } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 import './TrendingList.scss';
 import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
-import { Grid } from '@mui/material';
-import moment from 'moment';
+
+import DotDivider from '@/components/Divider';
 
 const TrendingItem = ({ blog, index }) => {
     return (
@@ -34,13 +35,7 @@ const TrendingItem = ({ blog, index }) => {
                     <p className="trending-item__date">
                         {moment(blog.createdAt).format('ll')}
                     </p>
-                    <FiberManualRecordIcon
-                        sx={{
-                            fontSize: '0.3rem',
-                            margin: '0 0.6rem',
-                            fill: 'var(--gray)',
-                        }}
-                    />
+                    <DotDivider />
                     <p className="trending-item__like">
                         <ThumbUpIcon
                             sx={{ fill: '#437aff', marginRight: '0.4rem' }}

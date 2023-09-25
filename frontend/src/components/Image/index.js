@@ -19,10 +19,11 @@ const Image = forwardRef(
         const handleError = () => {
             setFallBack(customFallBack);
         };
+
         return (
             <img
                 ref={ref}
-                src={fallBack || src}
+                src={src || fallBack}
                 alt={alt}
                 className={className}
                 onError={handleError}
