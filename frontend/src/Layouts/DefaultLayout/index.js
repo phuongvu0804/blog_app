@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import Header from './components/Header';
 
+import './DefaultLayout.scss';
 const DefaultLayout = ({ children }) => {
     return (
-        //set default width to test headers
-        <div className="default-layout__wrapper" style={{ height: '1000px' }}>
+        <div className="default-layout__wrapper">
             <Header className="default-layout__header" />
             <div className="default-layout__container">
                 <div className="default-layout__content">{children}</div>

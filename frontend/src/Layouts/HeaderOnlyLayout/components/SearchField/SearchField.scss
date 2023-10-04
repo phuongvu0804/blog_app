@@ -1,0 +1,34 @@
+.header__search-field {
+    display: flex;
+    align-items: center;
+    margin-left: 1.6rem;
+    background-color: #f9f9f9;
+    border-radius: 2rem;
+    width: 24rem;
+
+    .header__search-icon {
+        font-size: 2.4rem;
+        color: #000000cc;
+        margin: 0 1.2rem;
+    }
+}
+
+.header__search-input {
+    padding: 1rem 2rem 1rem 0;
+    border: none;
+    background-color: #f9f9f9;
+    outline: none;
+}
+
+@media (max-width: 739px) {
+    .header__search-field {
+        margin: 1.8rem auto;
+        background-color: transparent;
+        border: 0.1rem solid var(--light-gray);
+        width: 100%;
+    }
+
+    .header__search-input {
+        background-color: transparent;
+    }
+}

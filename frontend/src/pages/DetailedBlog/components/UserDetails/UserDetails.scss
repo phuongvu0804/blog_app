@@ -1,0 +1,133 @@
+.blog-details__author-wrapper {
+    padding-top: 7.2rem;
+    padding-bottom: 9.6rem;
+    background-color: #f9f9f9;
+}
+
+.blog-details__author-details {
+    display: flex;
+    align-items: center;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid #e5e5e5;
+
+    svg {
+        font-size: 2.4rem;
+        margin-right: 0.8rem;
+    }
+
+    h4 {
+        font-size: 2.4rem;
+        line-height: 3rem;
+    }
+}
+
+.blog-details__author-blog-list {
+    h3 {
+        font-size: 1.6rem;
+        font-weight: 500;
+        margin: 4rem 0 3.2rem;
+    }
+}
+
+.author-blog__item {
+    a {
+        display: block;
+        color: var(--text-color);
+        text-decoration: none;
+    }
+}
+
+.author-blog__img {
+    display: block;
+
+    img {
+        width: 100%;
+        object-position: center;
+        object-fit: cover;
+        aspect-ratio: 2 / 1;
+        border-radius: 2px;
+        background-color: #f9f9f9;
+    }
+}
+
+a.author-blog__name {
+    margin-bottom: 1.6rem;
+    display: flex;
+    align-items: center;
+
+    svg {
+        font-size: 2rem;
+        margin-right: 0.8rem;
+    }
+
+    p {
+        font-size: 1.4rem;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+a.author-blog__title {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+a.author-blog__text {
+    display: -webkit-box;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    max-height: 4.5rem;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow-y: hidden;
+    padding-top: 0.8rem;
+    color: var(--gray);
+}
+
+span.author-blog__date {
+    display: block;
+    font-size: 1.4rem;
+    padding: 1.6rem 0;
+    color: var(--gray);
+}
+
+div.author-blog__interaction-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .author-blog__interaction-item {
+        font-size: 1.4rem;
+
+        svg {
+            font-size: 2.4rem;
+        }
+    }
+}
+
+@media (max-width: 739px) {
+    .blog-details__author-wrapper {
+        padding-top: 4.8rem;
+    }
+
+    .blog-details__author-details {
+        padding-bottom: 3.2rem;
+    }
+
+    a.blog-details__more-btn {
+        font-size: 1.4rem;
+        font-weight: 300;
+        padding: 0.8rem 1.6rem;
+        border: 0.1rem solid var(--text-color);
+        border-radius: 99em;
+        color: var(--text-color);
+        text-transform: none;
+        width: 100%;
+
+        &:hover {
+            border-color: var(--text-color);
+        }
+    }
+}

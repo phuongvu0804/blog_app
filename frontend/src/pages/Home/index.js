@@ -12,18 +12,6 @@ import Banner from './components/Banner';
 import TrendingList from './components/TrendingList';
 
 const Home = () => {
-    const recommendationTopics = [
-        'Programming',
-        'Data Science',
-        'Technology',
-        'Self Improvement',
-        'Writing',
-        'Relationships',
-        'Machine Learning',
-        'Productivity',
-        'Politics',
-    ];
-
     const footerList = [
         'Help',
         'Status',
@@ -70,11 +58,7 @@ const Home = () => {
             <Box sx={{ height: HEADER_HEIGHT_DEFAULT_LAYOUT }} />
             <Banner />
             <TrendingList data={trendingBlogs} />
-            <RecommendationList
-                blogList={blogs}
-                recommendationTopics={recommendationTopics}
-                footerList={footerList}
-            />
+            <RecommendationList blogList={blogs} footerList={footerList} />
         </div>
     );
 };

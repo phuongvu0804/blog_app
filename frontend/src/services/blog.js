@@ -9,4 +9,9 @@ const getAll = async () => {
     return response.data;
 };
 
-export default { getAll };
+const getBlogById = async (id) => {
+    const response = await axios.get(`${baseUrl}/${id}`);
+    return response.data;
+};
+
+export default { getAll, getBlogById };

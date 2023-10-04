@@ -1,0 +1,44 @@
+.rcm-topics {
+    padding-bottom: 3.2rem;
+    border-bottom: 0.1rem solid var(--light-gray);
+}
+
+.rcm-list__topic-list {
+}
+
+.rcm-list__topic-item {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 300;
+    line-height: 2rem;
+    padding: 0.8rem 1.6rem;
+    margin: 0 1rem 0.8rem 0;
+    color: var(--text-color);
+    background-color: var(--light-gray);
+    border: 0.1rem solid var(--light-gray);
+    border-radius: 10rem;
+    white-space: nowrap;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.rcm-list__topic-btn {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 00;
+    color: #1a8917;
+    margin-top: 1.4rem;
+    text-decoration: none;
+    &:hover {
+        color: var(--text-color);
+        transition: color 0.3s ease;
+    }
+}
+
+//Responsive for tablet + mobile devices
+@media (max-width: 1023px) {
+    .rcm-topics {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+}

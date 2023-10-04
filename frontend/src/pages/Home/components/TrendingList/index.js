@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { Box, Container } from '@mui/system';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { Grid } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
@@ -13,6 +12,7 @@ import './TrendingList.scss';
 import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
 
 import DotDivider from '@/components/Divider';
+import LikeButton from '@/components/LikeButton';
 
 const TrendingItem = ({ blog, index }) => {
     return (
@@ -30,18 +30,17 @@ const TrendingItem = ({ blog, index }) => {
                         {blog.author.name}
                     </span>
                 </Link>
-                <Link className="trending-item__title">{blog.title}</Link>
+                <Link to={`/blogs/${blog.id}`} className="trending-item__title">
+                    {blog.title}
+                </Link>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <p className="trending-item__date">
                         {moment(blog.createdAt).format('ll')}
                     </p>
                     <DotDivider />
-                    <p className="trending-item__like">
-                        <ThumbUpIcon
-                            sx={{ fill: '#437aff', marginRight: '0.4rem' }}
-                        />
+                    <LikeButton className="trending-item__like">
                         {blog.likes}
-                    </p>
+                    </LikeButton>
                 </Box>
             </div>
         </Grid>

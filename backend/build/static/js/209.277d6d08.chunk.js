@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunka=self.webpackChunka||[]).push([[209],{4209:function(e,n,u){u.r(n),u.d(n,{default:function(){return t}});u(2791);var r=u(184),t=function(){return(0,r.jsx)("div",{children:"DetailedUser"})}}}]);
+//# sourceMappingURL=209.277d6d08.chunk.js.map

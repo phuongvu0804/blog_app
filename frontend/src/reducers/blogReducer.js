@@ -19,7 +19,6 @@ export const initializeBlogs = () => {
             const blogs = await blogService.getAll();
             dispatch(setBlog(blogs));
         } catch (err) {
-            console.log('err initializeBlogs', err);
             setNoti({
                 content: err.response.data.error,
                 type: 'error',

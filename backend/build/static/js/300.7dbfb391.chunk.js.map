@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/300.7dbfb391.chunk.js","mappings":"6JAQA,EAJiB,WACb,OAAOA,EAAAA,EAAAA,KAAA,OAAAC,SAAK,YAChB,C","sources":["pages/BlogList/index.js"],"sourcesContent":["import React from 'react';\n\nimport './BlogList.scss';\n\nconst BlogList = () => {\n    return <div>BlogList</div>;\n};\n\nexport default BlogList;\n"],"names":["_jsx","children"],"sourceRoot":""}

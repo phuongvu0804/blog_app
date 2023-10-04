@@ -1,0 +1,103 @@
+button.header__profile-btn {
+    &:hover {
+        background-color: transparent;
+    }
+
+    img {
+        width: 3.2rem;
+        height: 3.2rem;
+        border: 0.1rem solid var(--light-gray);
+        border-radius: 50%;
+    }
+    svg {
+        font-size: 1.4rem;
+        margin-left: 0.4rem;
+    }
+}
+
+.header__profile-popover {
+}
+
+.profile-popover__container {
+    padding: 1.8rem 0;
+    max-height: 90vh;
+    width: 26.4rem;
+    border-radius: 0.4rem;
+    background-color: var(--white);
+    overflow-y: auto;
+    box-shadow:
+        rgba(0, 0, 0, 0.05) 0px 0px 4px,
+        rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    z-index: 100;
+
+    h4 {
+        font-size: 1.6rem;
+        font-weight: 500;
+        padding-top: 1.6rem;
+        text-align: center;
+    }
+}
+
+.profile-popover__top-wrapper {
+    padding: 0 2.4rem 1.6rem 2.4rem;
+    border-bottom: 0.1rem solid var(--light-gray);
+    a.header__nav-item {
+        justify-content: start;
+    }
+}
+.profile-popover__top {
+    padding: 2.4rem 2.4rem 1.6rem;
+    border-bottom: 1px solid #f2f2f2;
+
+    button + button {
+        margin-top: 1.6rem;
+    }
+
+    button {
+        font-size: 1.4rem;
+        font-weight: 300;
+        padding: 0.5rem 1.2rem;
+        width: 100%;
+        border-radius: 99em;
+        text-transform: none;
+    }
+}
+
+button.profile-popover__btn--contained {
+    background-color: var(--green);
+    color: var(--white);
+
+    &:hover {
+        background-color: var(--green-hover);
+    }
+}
+
+button.profile-popover__btn--outlined {
+    color: var(--text-color);
+    border-color: var(--text-color);
+
+    &:hover {
+        background-color: transparent;
+        border-color: var(--text-color);
+    }
+}
+
+.profile-popover__bottom {
+    padding: 1.8rem 2.4rem 0 2.4rem;
+
+    li {
+        font-size: 1.4rem;
+        font-weight: 300;
+        padding-top: 0.6rem;
+        list-style-type: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--gray);
+
+        &:hover {
+            color: var(--text-color);
+        }
+    }
+}

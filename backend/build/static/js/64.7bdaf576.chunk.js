@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunka=self.webpackChunka||[]).push([[64],{4064:function(n,e,u){u.r(e),u.d(e,{default:function(){return t}});u(2791);var r=u(184),t=function(){return(0,r.jsx)("div",{children:"UserList"})}}}]);
+//# sourceMappingURL=64.7bdaf576.chunk.js.map

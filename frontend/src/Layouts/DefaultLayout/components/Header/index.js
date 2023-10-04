@@ -65,10 +65,9 @@ const Header = () => {
                     justifyContent: 'space-between',
                 }}
             >
-                <Image
-                    className="default-layout__header-logo"
-                    src={images.logo}
-                />
+                <Link to="/" className="default-layout__header-logo">
+                    <Image src={images.logo} />
+                </Link>
                 <Container
                     sx={{
                         display: 'flex',

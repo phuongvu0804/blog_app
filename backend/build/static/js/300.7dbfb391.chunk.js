@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunka=self.webpackChunka||[]).push([[300],{9300:function(n,u,e){e.r(u),e.d(u,{default:function(){return r}});e(2791);var t=e(184),r=function(){return(0,t.jsx)("div",{children:"BlogList"})}}}]);
+//# sourceMappingURL=300.7dbfb391.chunk.js.map

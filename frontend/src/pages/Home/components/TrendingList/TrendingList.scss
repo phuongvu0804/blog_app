@@ -66,3 +66,9 @@ div.trending-list__item {
     color: var(--gray);
     line-height: 2rem;
 }
+
+button.trending-item__like {
+    > span > svg {
+        font-size: 1.4rem;
+    }
+}

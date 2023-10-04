@@ -1,11 +1,22 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { publicRoutes, privateRoutes } from '@/routes';
 import DefaultLayout from '@/Layouts/DefaultLayout';
 import NotFound from '@/pages/NotFound';
+import { LOCAL_STORAGE_KEY } from '@/constants';
+import { appendUser } from '@/reducers/userReducer';
 
 function App() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        const user = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (user) {
+            dispatch(appendUser(user));
+        }
+    }, []);
+
     const renderRoute = (route, index) => {
         const Page = route.component;
         let Layout = DefaultLayout;
@@ -30,7 +41,7 @@ function App() {
     };
 
     const handlePrivateRoutes = () => {
-        const user = localStorage.getItem('blog_user');
+        const user = localStorage.getItem(LOCAL_STORAGE_KEY);
         return privateRoutes.map((route, index) => {
             if (!user) {
                 return (

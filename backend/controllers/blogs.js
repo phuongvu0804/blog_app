@@ -59,7 +59,7 @@ blogsRouter.post(
 //Route for displaying a detailed blog
 blogsRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
-  const blog = await Blog.findById(id);
+  const blog = await Blog.findById(id).populate("author");
   if (blog) {
     res.json(blog);
   } else {

@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/329.72675b49.chunk.js","mappings":"6JAQA,EAJe,WACX,OAAOA,EAAAA,EAAAA,KAAA,OAAAC,SAAK,UAChB,C","sources":["pages/SignUp/index.js"],"sourcesContent":["import React from 'react';\n\nimport './SignUp.scss';\n\nconst SignUp = () => {\n    return <div>SignUp</div>;\n};\n\nexport default SignUp;\n"],"names":["_jsx","children"],"sourceRoot":""}

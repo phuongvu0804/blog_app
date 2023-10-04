@@ -49,6 +49,10 @@
 
 .default-layout__header-logo {
     height: 2.5rem;
+    img {
+        height: 100%;
+        width: 100%;
+    }
 }
 
 //Responsive for mobile devices

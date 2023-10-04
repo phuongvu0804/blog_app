@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunka=self.webpackChunka||[]).push([[329],{5329:function(n,u,e){e.r(u),e.d(u,{default:function(){return t}});e(2791);var r=e(184),t=function(){return(0,r.jsx)("div",{children:"SignUp"})}}}]);
+//# sourceMappingURL=329.72675b49.chunk.js.map
