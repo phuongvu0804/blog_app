@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import './BlogItem.scss';
 
 import { Box } from '@mui/system';
-import { Grid, IconButton, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 import Image from '@/components/Image';
 import DotDivider from '@/components/Divider';
 import LikeButton from '@/components/LikeButton';
+import SaveButton from '@/components/SaveButton';
 
 const BlogItem = ({ blog }) => {
-    console.log('blog', blog);
-    const [onSaved, setOnSaved] = useState(false);
-
     return (
         <Grid
             container
@@ -68,14 +64,7 @@ const BlogItem = ({ blog }) => {
                             {blog.likes}
                         </LikeButton>
                     </Box>
-                    <IconButton
-                        className={`blog-item__info-btn ${
-                            onSaved ? 'on-saved' : ''
-                        }`}
-                        onClick={() => setOnSaved(!onSaved)}
-                    >
-                        {onSaved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-                    </IconButton>
+                    <SaveButton />
                 </Box>
             </Grid>
             <Grid item xs={4} sm={4} md={4} className="blog-item__right">

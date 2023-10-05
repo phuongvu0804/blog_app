@@ -55,7 +55,6 @@ const Home = () => {
 
     return (
         <div>
-            <Box sx={{ height: HEADER_HEIGHT_DEFAULT_LAYOUT }} />
             <Banner />
             <TrendingList data={trendingBlogs} />
             <RecommendationList blogList={blogs} footerList={footerList} />
