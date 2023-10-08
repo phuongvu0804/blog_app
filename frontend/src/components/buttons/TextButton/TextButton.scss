@@ -1,0 +1,12 @@
+.text-btn {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #1a8917;
+    margin-top: 1.4rem;
+    text-decoration: none;
+    &:hover {
+        color: var(--text-color);
+        transition: color 0.3s ease;
+    }
+}

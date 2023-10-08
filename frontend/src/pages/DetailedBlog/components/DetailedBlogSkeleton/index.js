@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SaveButton from '@/components/SaveButton';
+import SaveButton from '@/components/buttons/SaveButton';
 import { MAX_WIDTH_BLOG_DETAILS } from '@/constants';
 
 import Skeleton from '@mui/material/Skeleton';

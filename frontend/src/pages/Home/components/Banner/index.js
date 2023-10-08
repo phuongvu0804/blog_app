@@ -5,7 +5,7 @@ import './Banner.scss';
 import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
 import images from '@/assets/images';
 
-import MainButton from '@/components/MainButton';
+import MainButton from '@/components/buttons/MainButton';
 import Image from '@/components/Image';
 const Banner = () => {
     return (

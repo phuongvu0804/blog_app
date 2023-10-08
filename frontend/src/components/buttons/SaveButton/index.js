@@ -2,13 +2,24 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { IconButton } from '@mui/material';
+import { IconButton, Skeleton } from '@mui/material';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import './SaveButton.scss';
 import { appendSavedBlog } from '@/reducers/userReducer';
 import { LOCAL_STORAGE_KEY } from '@/constants';
+
+export const SaveButtonSkeleton = ({ className }) => {
+    return (
+        <Skeleton
+            className={className}
+            variant="rounded"
+            width={15}
+            height={15}
+        />
+    );
+};
 
 const SaveButton = ({ className, blogId }) => {
     const navigate = useNavigate();

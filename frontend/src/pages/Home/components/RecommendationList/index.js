@@ -10,6 +10,7 @@ import { Grid } from '@mui/material';
 
 import RecommendationTopics from '@/components/RecommendationTopics';
 import BlogItem from '@/components/BlogItem';
+import TextButton from '@/components/buttons/TextButton';
 
 const RecommendationList = ({ blogList, footerList }) => {
     return (
@@ -22,6 +23,10 @@ const RecommendationList = ({ blogList, footerList }) => {
                     {blogList.map((blog) => (
                         <BlogItem key={blog.id} blog={blog} />
                     ))}
+
+                    <TextButton to={'/blogs'} className="rcm-list__btn">
+                        See more blogs
+                    </TextButton>
                 </Grid>
                 <Grid item xs={12} md={5} className="rcm-list__wrapper">
                     <RecommendationTopics />

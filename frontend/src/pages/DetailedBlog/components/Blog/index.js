@@ -6,9 +6,9 @@ import './Blog.scss';
 import { MAX_WIDTH_BLOG_DETAILS } from '@/constants';
 
 import Image from '@/components/Image';
-import SaveButton from '@/components/SaveButton';
-import LikeButton from '@/components/LikeButton';
-import CommentButton from '@/components/CommentButton';
+import SaveButton from '@/components/buttons/SaveButton';
+import LikeButton from '@/components/buttons/LikeButton';
+import CommentButton from '@/components/buttons/CommentButton';
 
 import { IconButton } from '@mui/material';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';

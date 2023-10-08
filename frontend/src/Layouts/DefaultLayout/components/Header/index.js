@@ -6,10 +6,10 @@ import { Button } from '@mui/material';
 
 import './Header.scss';
 import images from '@/assets/images';
+import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
 
 import Image from '@/components/Image';
-import MainButton from '@/components/MainButton';
-import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
+import MainButton from '@/components/buttons/MainButton';
 
 const Header = () => {
     const navbarList = [

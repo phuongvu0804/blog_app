@@ -22,19 +22,6 @@
     text-decoration: none;
 }
 
-.rcm-list__topic-btn {
-    display: block;
-    font-size: 1.4rem;
-    font-weight: 00;
-    color: #1a8917;
-    margin-top: 1.4rem;
-    text-decoration: none;
-    &:hover {
-        color: var(--text-color);
-        transition: color 0.3s ease;
-    }
-}
-
 //Responsive for tablet + mobile devices
 @media (max-width: 1023px) {
     .rcm-topics {

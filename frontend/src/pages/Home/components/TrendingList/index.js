@@ -12,7 +12,7 @@ import './TrendingList.scss';
 import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
 
 import DotDivider from '@/components/Divider';
-import LikeButton from '@/components/LikeButton';
+import LikeButton from '@/components/buttons/LikeButton';
 
 const TrendingItem = ({ blog, index }) => {
     return (

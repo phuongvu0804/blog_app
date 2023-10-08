@@ -7,9 +7,15 @@ import DefaultLayout from '@/Layouts/DefaultLayout';
 import NotFound from '@/pages/NotFound';
 import { LOCAL_STORAGE_KEY } from '@/constants';
 import { appendUser } from '@/reducers/userReducer';
+import { initializeBlogs } from '@/reducers/blogReducer';
 
 function App() {
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(initializeBlogs());
+    }, []);
+
     useEffect(() => {
         const user = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (user) {

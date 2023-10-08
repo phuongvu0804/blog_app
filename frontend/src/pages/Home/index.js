@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { Box } from '@mui/material';
-
-import { HEADER_HEIGHT_DEFAULT_LAYOUT } from '@/constants';
 import './Home.scss';
-import { initializeBlogs } from '@/reducers/blogReducer';
 import RecommendationList from './components/RecommendationList';
 
 import Banner from './components/Banner';
@@ -25,13 +21,8 @@ const Home = () => {
         'Terms',
     ];
 
-    const dispatch = useDispatch();
-    const blogs = useSelector((state) => state.blogs);
+    const blogs = useSelector((state) => state.blogs.data);
     const [trendingBlogs, setTrendingBlogs] = useState([]);
-
-    useEffect(() => {
-        dispatch(initializeBlogs());
-    }, []);
 
     const filterBlogsByLikes = () => {
         const newBlogs = [...blogs]
