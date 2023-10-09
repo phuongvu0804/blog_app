@@ -6,12 +6,8 @@ import images from '@/assets/images';
 
 const Logo = ({ className, ...props }) => {
     return (
-        <Link to="/">
-            <Image
-                className={`logo__img ${className}`}
-                src={images.logo}
-                {...props}
-            />
+        <Link to="/" className={className}>
+            <Image className="logo__img" src={images.logo} {...props} />
         </Link>
     );
 };

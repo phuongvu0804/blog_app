@@ -6,8 +6,8 @@ import { publicRoutes, privateRoutes } from '@/routes';
 import DefaultLayout from '@/Layouts/DefaultLayout';
 import NotFound from '@/pages/NotFound';
 import { LOCAL_STORAGE_KEY } from '@/constants';
-import { appendUser } from '@/reducers/userReducer';
 import { initializeBlogs } from '@/reducers/blogReducer';
+import { fetchUserDataByUserName } from '@/reducers/userReducer';
 
 function App() {
     const dispatch = useDispatch();
@@ -17,9 +17,9 @@ function App() {
     }, []);
 
     useEffect(() => {
-        const user = localStorage.getItem(LOCAL_STORAGE_KEY);
+        const user = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
         if (user) {
-            dispatch(appendUser(user));
+            dispatch(fetchUserDataByUserName(user.username));
         }
     }, []);
 

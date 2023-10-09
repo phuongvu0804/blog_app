@@ -6,9 +6,9 @@
     right: 0;
     display: flex;
     align-items: center;
-    height: 7.5rem;
+    height: var(--header-height-layout);
     border-bottom: 0.1rem solid var(--black);
-    z-index: 10000;
+    z-index: 5;
 
     &.on-scroll {
         background-color: var(--white);

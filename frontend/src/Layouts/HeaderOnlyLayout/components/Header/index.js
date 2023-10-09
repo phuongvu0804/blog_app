@@ -7,7 +7,7 @@ import './Header.scss';
 import images from '@/assets/images';
 
 import SearchField from '../SearchField';
-import UserButton from '../UserButton';
+import UserButton from '@/components/buttons/UserButton';
 import Image from '@/components/Image';
 
 import { Button } from '@mui/material';
@@ -48,11 +48,13 @@ const Header = ({ className }) => {
         },
     ];
 
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.user.data);
     const [buttonList, setButtonList] = useState(buttonListNoUser);
     useEffect(() => {
         if (user) {
             setButtonList(buttonListWithUser);
+        } else {
+            setButtonList(buttonListNoUser);
         }
     }, [user]);
 
@@ -107,7 +109,7 @@ const Header = ({ className }) => {
                             </Button>
                         );
                     })}
-                    <UserButton user={user} />
+                    {user && <UserButton user={user} />}
                 </div>
             </Container>
 

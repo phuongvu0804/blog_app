@@ -3,16 +3,13 @@ import { useParams } from 'react-router-dom';
 
 import './DetailedBlog.scss';
 import blogService from '@/services/blog';
-import { fetchUserData } from '@/reducers/userReducer';
 
 import Blog from './components/Blog';
-import { useDispatch } from 'react-redux';
 import UserDetails from './components/UserDetails';
 import DetailedBlogSkeleton from './components/DetailedBlogSkeleton';
 
 const DetailedBlog = () => {
     const { id } = useParams();
-    const dispatch = useDispatch();
     const [blog, setBlog] = useState(null);
 
     //Fetch blog details
@@ -31,13 +28,6 @@ const DetailedBlog = () => {
         };
     }, []);
 
-    //Fetch user details
-    useEffect(() => {
-        if (blog?.author) {
-            dispatch(fetchUserData(blog?.author.id));
-        }
-    }, [blog]);
-
     if (!blog) {
         return <DetailedBlogSkeleton />;
     }
@@ -45,7 +35,7 @@ const DetailedBlog = () => {
     return (
         <div className="blog-details__container">
             <Blog blogData={blog} />
-            <UserDetails />
+            {blog.author && <UserDetails authorId={blog.author.id} />}
         </div>
     );
 };

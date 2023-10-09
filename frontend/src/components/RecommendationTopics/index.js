@@ -27,7 +27,6 @@ export const RecommendationTopicsSkeleton = ({ className }) => {
 
             <Box
                 sx={{ display: 'flex', flexWrap: 'wrap' }}
-                container
                 spacing={1}
                 className="rcm-list__topic-list"
             >
@@ -59,7 +58,6 @@ const RecommendationTopics = ({ className }) => {
             </Typography>
             <Box
                 sx={{ display: 'flex', flexWrap: 'wrap' }}
-                container
                 spacing={1}
                 className="rcm-list__topic-list"
             >

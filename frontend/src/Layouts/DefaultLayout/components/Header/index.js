@@ -5,14 +5,15 @@ import { Container } from '@mui/system';
 import { Button } from '@mui/material';
 
 import './Header.scss';
-import images from '@/assets/images';
 import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
+import { LOCAL_STORAGE_KEY } from '@/constants';
 
-import Image from '@/components/Image';
 import MainButton from '@/components/buttons/MainButton';
+import Logo from '@/components/Logo';
+import UserButton from '@/components/buttons/UserButton';
 
 const Header = () => {
-    const navbarList = [
+    const navbarListWithoutUser = [
         {
             name: 'Blogs',
             link: '/blogs',
@@ -26,12 +27,29 @@ const Header = () => {
             link: '/write',
         },
         {
-            name: 'Sign In',
-            link: '/sign-in',
+            name: 'Log In',
+            link: '/login',
+        },
+    ];
+
+    const navbarListWithUser = [
+        {
+            name: 'Blogs',
+            link: '/blogs',
+        },
+        {
+            name: 'Users',
+            link: '/users',
+        },
+        {
+            name: 'Write',
+            link: '/write',
         },
     ];
 
     const [onScroll, setOnScroll] = useState(false);
+    const [user, setUser] = useState(null);
+    const [navbarList, setNavbarList] = useState(navbarListWithoutUser);
 
     useEffect(() => {
         const onScroll = () => {
@@ -50,6 +68,18 @@ const Header = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+
+        if (userData) {
+            setUser(userData);
+            setNavbarList(navbarListWithUser);
+        } else {
+            setUser(null);
+            setNavbarList(navbarListWithoutUser);
+        }
+    }, []);
+
     return (
         <div
             className={`default-layout__header ${
@@ -65,9 +95,7 @@ const Header = () => {
                     justifyContent: 'space-between',
                 }}
             >
-                <Link to="/" className="default-layout__header-logo">
-                    <Image src={images.logo} />
-                </Link>
+                <Logo className="default-layout__header-logo" />
                 <Container
                     sx={{
                         display: 'flex',
@@ -86,9 +114,16 @@ const Header = () => {
                             {item.name}
                         </Button>
                     ))}
-                    <MainButton className="default-layout__navbar-button">
-                        Get started
-                    </MainButton>
+                    {user ? (
+                        <UserButton user={user} />
+                    ) : (
+                        <MainButton
+                            to="/signup"
+                            className="default-layout__navbar-button"
+                        >
+                            Get started
+                        </MainButton>
+                    )}
                 </Container>
             </Container>
         </div>

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import './UserDetails.scss';
+import { setNoti } from '@/reducers/notiReducer';
+import { MAX_WIDTH_BLOG_DETAILS } from '@/constants';
+import userService from '@/services/user';
 
 import Image from '@/components/Image';
 import SaveButton from '@/components/buttons/SaveButton';
@@ -13,7 +15,6 @@ import CommentButton from '@/components/buttons/CommentButton';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Button, Divider, Grid, Typography } from '@mui/material';
 import { Container } from '@mui/system';
-import { MAX_WIDTH_BLOG_DETAILS } from '@/constants';
 
 const BlogSummaryItem = ({ blogData, authorName, authorId }) => {
     return (
@@ -61,13 +62,24 @@ const BlogSummaryItem = ({ blogData, authorName, authorId }) => {
     );
 };
 
-const UserDetails = () => {
-    const authorDetails = useSelector((state) => state.user);
+const UserDetails = ({ authorId }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        setUser(authorDetails);
-    }, [authorDetails]);
+        const fetchUserDetails = async () => {
+            try {
+                const userDetails = await userService.getUserById(authorId);
+                setUser(userDetails);
+            } catch (err) {
+                setNoti({
+                    type: 'error',
+                    content: err.message,
+                });
+            }
+        };
+
+        fetchUserDetails();
+    }, []);
 
     return (
         <div className="blog-details__author-wrapper">

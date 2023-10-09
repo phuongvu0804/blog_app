@@ -5,13 +5,18 @@ import Popover from '@mui/material/Popover';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import './UserButton.scss';
 import { Button, IconButton } from '@mui/material';
 import Image from '@/components/Image';
 import images from '@/assets/images';
+import { LOCAL_STORAGE_KEY } from '@/constants';
+import { useDispatch } from 'react-redux';
+import { removeUser } from '@/reducers/userReducer';
 
 const UserButton = ({ user }) => {
+    const dispatch = useDispatch();
     const profileLinks = [
         {
             content: 'Become a member',
@@ -62,6 +67,13 @@ const UserButton = ({ user }) => {
         setAnchorEl(null);
     };
 
+    const handleLogOut = () => {
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+        handleClose();
+
+        dispatch(removeUser());
+    };
+
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
@@ -86,6 +98,15 @@ const UserButton = ({ user }) => {
                             </Button>
                         );
                     })}
+                    <Button
+                        className="header__nav-item"
+                        component={Link}
+                        variant="text"
+                        startIcon={<LogoutIcon />}
+                        onClick={handleLogOut}
+                    >
+                        Log out
+                    </Button>
                 </div>
             );
         } else {
@@ -110,6 +131,7 @@ const UserButton = ({ user }) => {
             );
         }
     };
+
     return (
         <div>
             <IconButton
