@@ -1,32 +1,50 @@
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 
 import '../authPages.scss';
 import { actLogin } from '@/reducers/userReducer';
 
-import { Alert, Button, FormControl, Input, InputLabel } from '@mui/material';
+import { Alert, FormControl, Input, InputLabel } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const login = useSelector((state) => state.user);
+    const [formInputs, setFormInputs] = useState({
+        username: '',
+        password: '',
+    });
     const [noti, setNoti] = useState({
         type: 'info',
         content: null,
     });
 
+    useEffect(() => {
+        if (login.error) {
+            setNoti({
+                type: 'error',
+                content: login.error.response.data.error,
+            });
+        }
+    }, [login.error]);
+
+    const handleChange = (e) => {
+        setFormInputs({ ...formInputs, [e.target.name]: e.target.value });
+    };
+
     const handleValidate = () => {
         let isValid = false;
 
-        if (username.length < 3) {
+        if (formInputs.username.length < 3) {
             return setNoti({
                 type: 'error',
                 content: 'Username must be at least 3 characters',
             });
         }
 
-        if (password.length < 6) {
+        if (formInputs.password.length < 6) {
             return setNoti({
                 type: 'error',
                 content: 'Password must be at least 6 characters',
@@ -41,35 +59,15 @@ const Login = () => {
         const isValid = handleValidate();
 
         if (isValid) {
-            try {
-                dispatch(
-                    actLogin(
-                        {
-                            username,
-                            password,
-                        },
-                        navigate,
-                    ),
-                );
-                setNoti({
-                    type: 'success',
-                    content: 'You have logged in successfully',
-                });
-            } catch (err) {
-                switch (err.response.status) {
-                    case 401:
-                        setNoti({
-                            type: 'error',
-                            content: err.message,
-                        });
-                        break;
-                    default:
-                        setNoti({
-                            type: 'error',
-                            content: err.message,
-                        });
-                }
-            }
+            dispatch(
+                actLogin(
+                    {
+                        username: formInputs.username,
+                        password: formInputs.password,
+                    },
+                    navigate,
+                ),
+            );
         }
     };
 
@@ -87,25 +85,29 @@ const Login = () => {
             <FormControl className="auth__input-group">
                 <InputLabel>Username</InputLabel>
                 <Input
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    name="username"
+                    value={formInputs.username}
+                    onChange={handleChange}
                 />
             </FormControl>
             <FormControl className="auth__input-group">
                 <InputLabel>Password</InputLabel>
                 <Input
+                    name="password"
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={formInputs.password}
+                    onChange={handleChange}
                 />
             </FormControl>
-            <Button
+
+            <LoadingButton
+                loading={login.loading}
                 type="submit"
                 className="auth__input-btn"
                 variant="contained"
             >
                 Submit
-            </Button>
+            </LoadingButton>
         </form>
     );
 };

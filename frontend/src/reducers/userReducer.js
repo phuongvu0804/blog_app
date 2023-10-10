@@ -77,6 +77,8 @@ export const fetchUserDataByUserName = (username) => {
 
 export const actLogin = (user, navigate) => {
     return async (dispatch) => {
+        dispatch(getUserDataRequest());
+
         try {
             const userDetails = await authService.login(user);
 

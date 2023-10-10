@@ -34,9 +34,21 @@ usersRouter.get("/:id", async (req, res) => {
 usersRouter.post("/", async (req, res, next) => {
   const { name, username, password } = req.body;
 
-  if (!password || password.length < 3) {
+  if (!username || username.length < 3) {
     return res.status(400).json({
       error: "`password` is shorter than the minimum allowed length (3)",
+    });
+  }
+
+  if (!name || name.length < 3) {
+    return res.status(400).json({
+      error: "`password` is shorter than the minimum allowed length (3)",
+    });
+  }
+
+  if (!password || password.length < 6) {
+    return res.status(400).json({
+      error: "`password` is shorter than the minimum allowed length (6)",
     });
   }
 
