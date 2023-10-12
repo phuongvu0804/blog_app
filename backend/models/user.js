@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
     minLength: 3,
     require: true,
   },
+  description: {
+    type: String,
+    minLength: 50,
+  },
   passwordHash: {
     type: String,
     require: true,

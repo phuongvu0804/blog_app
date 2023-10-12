@@ -37,6 +37,10 @@
         line-height: 2rem;
         color: var(--text-color);
         text-transform: none;
+
+        &:hover {
+            background-color: transparent;
+        }
     }
 
     .default-layout__navbar-button {

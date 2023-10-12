@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { Container } from '@mui/system';
 import { Button } from '@mui/material';
@@ -47,8 +48,8 @@ const Header = () => {
         },
     ];
 
+    const user = useSelector((state) => state.user.data);
     const [onScroll, setOnScroll] = useState(false);
-    const [user, setUser] = useState(null);
     const [navbarList, setNavbarList] = useState(navbarListWithoutUser);
 
     useEffect(() => {
@@ -69,13 +70,9 @@ const Header = () => {
     }, []);
 
     useEffect(() => {
-        const userData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-
-        if (userData) {
-            setUser(userData);
+        if (user) {
             setNavbarList(navbarListWithUser);
         } else {
-            setUser(null);
             setNavbarList(navbarListWithoutUser);
         }
     }, []);

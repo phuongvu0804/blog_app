@@ -90,7 +90,7 @@ export const actLogin = (user, navigate) => {
 
             setTimeout(() => {
                 navigate('/');
-            }, 3000);
+            }, 2000);
         } catch (err) {
             setNoti({
                 content: err.message,

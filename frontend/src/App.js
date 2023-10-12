@@ -47,7 +47,7 @@ function App() {
     };
 
     const handlePrivateRoutes = () => {
-        const user = localStorage.getItem(LOCAL_STORAGE_KEY);
+        const user = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
         return privateRoutes.map((route, index) => {
             if (!user) {
                 return (
@@ -59,7 +59,7 @@ function App() {
                 );
             }
 
-            renderRoute(route, index);
+            return renderRoute(route, index);
         });
     };
 

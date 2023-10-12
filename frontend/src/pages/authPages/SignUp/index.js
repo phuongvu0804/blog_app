@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import authService from '@/services/auth';
 
 import { LoadingButton } from '@mui/lab';
-import { Alert, FormControl, Input, InputLabel } from '@mui/material';
+import { Alert, Button, FormControl, Input, InputLabel } from '@mui/material';
 
 import '../authPages.scss';
 import { actLogin } from '@/reducers/userReducer';
@@ -52,6 +52,12 @@ const SignUp = () => {
         }
 
         return (isValid = true);
+    };
+
+    const handleUploadAvatar = (file) => {
+        let formData = new FormData();
+
+        console.log(file);
     };
 
     const handleSubmit = async (e) => {
@@ -108,13 +114,21 @@ const SignUp = () => {
                 />
             </FormControl>
             <FormControl className="auth__input-group">
-                <InputLabel>Name</InputLabel>
+                <InputLabel>Full name</InputLabel>
                 <Input
                     name="name"
                     value={formInputs.name}
                     onChange={handleChange}
                 />
             </FormControl>
+            {/* <FormControl className="auth__input-group">
+                <InputLabel>Email</InputLabel>
+                <Input
+                    name="email"
+                    value={formInputs.email}
+                    onChange={handleChange}
+                />
+            </FormControl> */}
             <FormControl className="auth__input-group">
                 <InputLabel>Password</InputLabel>
                 <Input
@@ -124,6 +138,34 @@ const SignUp = () => {
                     onChange={handleChange}
                 />
             </FormControl>
+            {/* <FormControl className="auth__input-group">
+                <InputLabel>Bio</InputLabel>
+                <Input
+                    name="description"
+                    value={formInputs.description}
+                    onChange={handleChange}
+                />
+            </FormControl> */}
+            {/* <FormControl className="auth__input-group">
+                <Button
+                    variant="text"
+                    component="label"
+                    sx={{
+                        color: 'var(--black)',
+                        textDecoration: 'underline',
+                        textTransform: 'none',
+                    }}
+                >
+                    Upload avatar
+                    <input
+                        hidden
+                        accept="image/*"
+                        type="file"
+                        onChange={(e) => handleUploadAvatar(e.target.files[0])}
+                    />
+                </Button>
+            </FormControl> */}
+
             <LoadingButton
                 type="submit"
                 className="auth__input-btn"
