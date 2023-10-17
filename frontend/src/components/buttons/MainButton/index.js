@@ -3,6 +3,17 @@ import PropTypes from 'prop-types';
 
 import './MainButton.scss';
 import { Link } from 'react-router-dom';
+import { Skeleton } from '@mui/material';
+
+export const MainButtonSkeleton = ({ className }) => {
+    return (
+        <Skeleton
+            component="button"
+            variant="rounded"
+            className={`main-button${className ? className : ''}`}
+        />
+    );
+};
 
 const MainButton = ({ className, children, ...props }) => {
     let Button = 'button';
@@ -11,7 +22,10 @@ const MainButton = ({ className, children, ...props }) => {
     }
 
     return (
-        <Button className={`main-button ${className}`} {...props}>
+        <Button
+            className={`main-button ${className ? className : ''}`}
+            {...props}
+        >
             {children}
         </Button>
     );

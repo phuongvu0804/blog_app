@@ -12,20 +12,20 @@ import Image from '@/components/Image';
 import DotDivider from '@/components/Divider';
 import LikeButton from '@/components/buttons/LikeButton';
 import SaveButton from '@/components/buttons/SaveButton';
-import { LikeButtonSkeleton } from '@/components/buttons/LikeButton';
 import { SaveButtonSkeleton } from '@/components/buttons/SaveButton';
 
-export const BlogItemSkeleton = () => {
+export const BlogItemSkeleton = ({ className }) => {
     return (
         <Grid
             container
             columnSpacing={{ xs: 1, sm: 4, md: 4 }}
-            className="blog-item"
+            className={`blog-item ${className ? className : ''}`}
         >
             <Grid item xs={8} sm={8} md={8} className="blog-item__left">
                 <div className="blog-item__author">
                     <Skeleton variant="circular" width={20} height={20} />
                     <Skeleton
+                        component="a"
                         variant="text"
                         sx={{ fontSize: '1.4rem' }}
                         width={70}
@@ -58,16 +58,14 @@ export const BlogItemSkeleton = () => {
                         <Skeleton
                             variant="text"
                             sx={{ fontSize: '1.4rem' }}
-                            width={80}
+                            width={150}
                         />
-                        <DotDivider />
-                        <LikeButtonSkeleton />
                     </Box>
                     <SaveButtonSkeleton />
                 </Box>
             </Grid>
             <Grid item xs={4} sm={4} md={4} className="blog-item__right">
-                <Skeleton variant="rectangular" width={200} height={134} />
+                <Skeleton component="img" variant="rounded" />
             </Grid>
         </Grid>
     );
@@ -79,8 +77,9 @@ const BlogItem = ({ blog }) => {
             container
             columnSpacing={{ xs: 1, sm: 4, md: 4 }}
             className="blog-item"
+            spacing={2}
         >
-            <Grid item xs={8} sm={8} md={8} className="blog-item__left">
+            <Grid item xs={7} sm={7} md={7} className="blog-item__left">
                 <div className="blog-item__author">
                     <AccountCircleIcon sx={{ fontSize: '2rem' }} />
                     <Typography
@@ -127,7 +126,7 @@ const BlogItem = ({ blog }) => {
                     <SaveButton />
                 </Box>
             </Grid>
-            <Grid item xs={4} sm={4} md={4} className="blog-item__right">
+            <Grid item xs={5} sm={5} md={5} className="blog-item__right">
                 <Link to={`/blogs/${blog.id}`}>
                     <Image src={blog?.image} />
                 </Link>

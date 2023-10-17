@@ -5,14 +5,80 @@ import moment from 'moment';
 
 import { Box, Container } from '@mui/system';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import { Grid } from '@mui/material';
+import { Grid, Skeleton } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 
 import './TrendingList.scss';
 import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
+import { NUMBER_OF_TRENDING_BLOGS } from '@/constants';
 
 import DotDivider from '@/components/Divider';
 import LikeButton from '@/components/buttons/LikeButton';
+
+const TrendingItemSkeleton = () => {
+    return (
+        <Grid item xs={12} sm={6} md={4} className="trending-list__item">
+            <div className="trending-item__no">
+                <Skeleton component="span" variant="rounded" />
+            </div>
+            <div className="trending-item__wrapper">
+                <Link className="trending-item__author">
+                    <Skeleton
+                        component="svg"
+                        variant="circular"
+                        className="trending-item__author-icon"
+                        width={20}
+                        height={20}
+                    />
+
+                    <Skeleton
+                        component="span"
+                        variant="text"
+                        className="trending-item__author-name"
+                        width={68}
+                    />
+                </Link>
+
+                <Skeleton
+                    component="a"
+                    variant="text"
+                    className="trending-item__title"
+                    width={170}
+                />
+                <Skeleton
+                    component="div"
+                    variant="rounded"
+                    width={170}
+                    height={20}
+                />
+            </div>
+        </Grid>
+    );
+};
+
+export const TrendingListSkeleton = () => {
+    return (
+        <Container
+            maxWidth={MAX_WIDTH_DEFAULT_LAYOUT}
+            className="trending-list__container"
+        >
+            <Skeleton
+                component="h2"
+                variant="text"
+                width={240}
+                height="20px"
+                sx={{ marginBottom: '1.6rem' }}
+            />
+            <Grid container spacing={2} className="trending-list__wrapper">
+                {Array.apply(null, Array(NUMBER_OF_TRENDING_BLOGS)).map(
+                    (blog, index) => (
+                        <TrendingItemSkeleton key={index} />
+                    ),
+                )}
+            </Grid>
+        </Container>
+    );
+};
 
 const TrendingItem = ({ blog, index }) => {
     return (
@@ -57,11 +123,16 @@ const TrendingList = ({ data }) => {
                 <TrendingUpIcon />
                 Trending on Medium
             </h2>
-            <Grid container spacing={2} className="trending-list__wrapper">
-                {data.map((blog, index) => (
-                    <TrendingItem key={blog.id} blog={blog} index={index} />
-                ))}
-            </Grid>
+
+            {data ? (
+                <Grid container spacing={2} className="trending-list__wrapper">
+                    {data.map((blog, index) => (
+                        <TrendingItem key={blog.id} blog={blog} index={index} />
+                    ))}
+                </Grid>
+            ) : (
+                <p>There is currently no trending blogs</p>
+            )}
         </Container>
     );
 };

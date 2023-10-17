@@ -17,6 +17,10 @@ div.banner__container {
         font-family: 'Playfair Display', serif;
         font-size: 10.6rem;
         margin-bottom: 6.8rem;
+
+        &.MuiSkeleton-root {
+            width: 50rem;
+        }
     }
 
     p {
@@ -25,6 +29,10 @@ div.banner__container {
         font-weight: 400;
         line-height: 2.4rem;
         color: var(--text-color);
+
+        &.MuiSkeleton-root {
+            width: 70rem;
+        }
     }
 
     button {
@@ -67,6 +75,11 @@ div.banner__container {
         h2 {
             font-size: 7rem;
             line-height: 7.4rem;
+        }
+
+        h2.MuiSkeleton-root,
+        p.MuiSkeleton-root {
+            width: unset;
         }
     }
 

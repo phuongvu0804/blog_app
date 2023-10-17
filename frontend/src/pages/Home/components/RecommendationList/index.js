@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import './RecommendationList.scss';
 import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
@@ -11,8 +10,46 @@ import { Grid } from '@mui/material';
 import RecommendationTopics from '@/components/RecommendationTopics';
 import BlogItem from '@/components/BlogItem';
 import TextButton from '@/components/buttons/TextButton';
+import Footer from '@/components/Footer';
+import { FooterSkeleton } from '@/components/Footer';
+import { RecommendationTopicsSkeleton } from '@/components/RecommendationTopics';
+import { TextButtonSkeleton } from '@/components/buttons/TextButton';
+import { BlogItemSkeleton } from '@/components/BlogItem';
 
-const RecommendationList = ({ blogList, footerList }) => {
+export const RecommendationListSkeleton = () => {
+    return (
+        <Container
+            maxWidth={MAX_WIDTH_DEFAULT_LAYOUT}
+            className="rcm-list__container"
+        >
+            <Grid container spacing={12} className="rcm-list__grid-container">
+                <Grid item xs={12} md={7} className="rcm-list__wrapper">
+                    {Array.apply(null, Array(8)).map((blog, index) => (
+                        <BlogItemSkeleton key={index} />
+                    ))}
+
+                    <TextButtonSkeleton className="rcm-list__btn" />
+                </Grid>
+                <Grid item xs={12} md={5} className="rcm-list__wrapper">
+                    <RecommendationTopicsSkeleton />
+                    <FooterSkeleton />
+                </Grid>
+            </Grid>
+        </Container>
+    );
+};
+
+const RecommendationList = ({ blogList }) => {
+    if (!blogList) {
+        return (
+            <Container
+                maxWidth={MAX_WIDTH_DEFAULT_LAYOUT}
+                className="rcm-list__container"
+            >
+                <p>There is currently no blog available</p>
+            </Container>
+        );
+    }
     return (
         <Container
             maxWidth={MAX_WIDTH_DEFAULT_LAYOUT}
@@ -30,13 +67,7 @@ const RecommendationList = ({ blogList, footerList }) => {
                 </Grid>
                 <Grid item xs={12} md={5} className="rcm-list__wrapper">
                     <RecommendationTopics />
-                    <div className="footer">
-                        {footerList.map((item, index) => (
-                            <Link className="footer-item" key={index}>
-                                {item}
-                            </Link>
-                        ))}
-                    </div>
+                    <Footer />
                 </Grid>
             </Grid>
         </Container>

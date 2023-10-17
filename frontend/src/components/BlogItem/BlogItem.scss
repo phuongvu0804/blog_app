@@ -56,6 +56,13 @@
 }
 
 .blog-item__right {
+    display: flex;
+    justify-content: flex-end;
+
+    a {
+        display: inline-block;
+    }
+
     img {
         width: 200px;
         aspect-ratio: auto 200 / 134;
@@ -84,10 +91,12 @@
             font-size: 1.4rem;
         }
     }
+
     .blog-item__right {
         img {
             width: 100px;
             height: 100px;
+            aspect-ratio: auto 100 / 100;
         }
     }
 }
