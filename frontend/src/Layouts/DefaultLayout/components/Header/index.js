@@ -7,7 +7,6 @@ import { Button } from '@mui/material';
 
 import './Header.scss';
 import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
-import { LOCAL_STORAGE_KEY } from '@/constants';
 
 import MainButton from '@/components/buttons/MainButton';
 import Logo from '@/components/Logo';

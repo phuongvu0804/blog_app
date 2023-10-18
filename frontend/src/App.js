@@ -3,11 +3,12 @@ import { Fragment, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { publicRoutes, privateRoutes } from '@/routes';
-import DefaultLayout from '@/Layouts/DefaultLayout';
-import NotFound from '@/pages/NotFound';
 import { LOCAL_STORAGE_KEY } from '@/constants';
 import { initializeBlogs } from '@/reducers/blogReducer';
 import { fetchUserDataByUserName } from '@/reducers/userReducer';
+
+import DefaultLayout from '@/Layouts/DefaultLayout';
+import NotFound from '@/pages/NotFound';
 
 function App() {
     const dispatch = useDispatch();

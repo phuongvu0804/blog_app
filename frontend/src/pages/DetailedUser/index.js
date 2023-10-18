@@ -48,7 +48,7 @@ const DetailedUser = () => {
         ));
     };
 
-    if (!loading) {
+    if (loading) {
         return <DetailedUserSkeleton />;
     }
 

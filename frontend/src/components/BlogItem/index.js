@@ -6,7 +6,6 @@ import './BlogItem.scss';
 
 import { Box } from '@mui/system';
 import { Grid, Skeleton, Typography } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import Image from '@/components/Image';
 import DotDivider from '@/components/Divider';
@@ -81,7 +80,7 @@ const BlogItem = ({ blog }) => {
         >
             <Grid item xs={7} sm={7} md={7} className="blog-item__left">
                 <div className="blog-item__author">
-                    <AccountCircleIcon sx={{ fontSize: '2rem' }} />
+                    <Image src={blog.author.image} />
                     <Typography
                         variant="h6"
                         component={Link}
@@ -123,12 +122,12 @@ const BlogItem = ({ blog }) => {
                             {blog.likes}
                         </LikeButton>
                     </Box>
-                    <SaveButton />
+                    <SaveButton blogId={blog.id} />
                 </Box>
             </Grid>
             <Grid item xs={5} sm={5} md={5} className="blog-item__right">
                 <Link to={`/blogs/${blog.id}`}>
-                    <Image src={blog?.image} />
+                    <Image src={blog.image} />
                 </Link>
             </Grid>
         </Grid>

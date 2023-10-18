@@ -17,6 +17,10 @@
     align-items: center;
     text-decoration: none;
     color: var(--text-color);
+
+    .blog-item__right {
+        margin-left: 6rem;
+    }
 }
 
 .blog-item__date {
@@ -53,10 +57,6 @@ button.blog-item__btn {
     svg {
         font-size: 2.4rem;
     }
-}
-
-.blog-item__right {
-    margin-left: 6rem;
 }
 
 .blog-item__bottom {

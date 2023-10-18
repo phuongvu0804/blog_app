@@ -63,6 +63,7 @@ export const fetchUserDataByUserName = (username) => {
             const userDetails = userList.filter(
                 (item) => item.username === username,
             );
+
             dispatch(getUserDataSuccess(userDetails[0]));
         } catch (err) {
             setNoti({
@@ -82,7 +83,8 @@ export const actLogin = (user, navigate) => {
         try {
             const userDetails = await authService.login(user);
 
-            dispatch(getUserDataSuccess(userDetails));
+            dispatch(fetchUserDataByUserName(userDetails.username));
+
             localStorage.setItem(
                 LOCAL_STORAGE_KEY,
                 JSON.stringify(userDetails),
