@@ -7,18 +7,19 @@ import { Button, Skeleton } from '@mui/material';
 import './LikeButton.scss';
 import { LOCAL_STORAGE_KEY } from '@/constants';
 
-export const LikeButtonSkeleton = ({ className }) => {
+export const LikeButtonSkeleton = ({ className, ...props }) => {
     return (
         <Skeleton
-            className={`icon-btn like-btn ${className}`}
+            className={`icon-btn like-btn  ${className ? className : ''}`}
             variant="text"
             sx={{ fontSize: '1.4rem' }}
             width={20}
+            {...props}
         />
     );
 };
 
-const LikeButton = ({ className, children }) => {
+const LikeButton = ({ className, children, ...props }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -33,6 +34,7 @@ const LikeButton = ({ className, children }) => {
             className={`icon-btn like-btn ${className}`}
             startIcon={<ThumbUpAltOutlinedIcon />}
             onClick={handleClick}
+            {...props}
         >
             {children}
         </Button>

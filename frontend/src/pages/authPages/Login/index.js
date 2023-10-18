@@ -76,6 +76,7 @@ const Login = () => {
             {noti.content && (
                 <Alert
                     severity={noti.type}
+                    className="noti"
                     sx={{ fontSize: '1.6rem', marginBottom: '3rem' }}
                 >
                     {noti.content}

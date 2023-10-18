@@ -1,64 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 
 import './UserDetails.scss';
 import { setNoti } from '@/reducers/notiReducer';
 import { MAX_WIDTH_BLOG_DETAILS } from '@/constants';
 import userService from '@/services/user';
 
-import Image from '@/components/Image';
-import SaveButton from '@/components/buttons/SaveButton';
-import LikeButton from '@/components/buttons/LikeButton';
-import CommentButton from '@/components/buttons/CommentButton';
-
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Button, Divider, Grid, Typography } from '@mui/material';
+import { Button, Grid, Skeleton } from '@mui/material';
 import { Container } from '@mui/system';
 
-const BlogSummaryItem = ({ blogData, authorName, authorId }) => {
+import { BlogSummaryItemSkeleton } from '../BlogSummaryItem';
+import BlogSummaryItem from '../BlogSummaryItem';
+
+export const UserDetailsSkeleton = () => {
     return (
-        <Grid item xs={12} sm={6} md={6} className="author-blog__item">
-            <Link to={`/blogs/${blogData.id}`} className="author-blog__img">
-                <Image src={blogData.image} />
-            </Link>
-            <Link to={`/users/${authorId}`} className="author-blog__name">
-                <AccountCircleIcon />
-                <p>{authorName}</p>
-            </Link>
-            <Typography
-                variant="h4"
-                component={Link}
-                className="author-blog__title"
-            >
-                {blogData.title}
-            </Typography>
-            <Typography
-                variant="body1"
-                component={Link}
-                className="author-blog__text"
-            >
-                {blogData.content}
-            </Typography>
-            <span className="author-blog__date">
-                {moment(blogData.createdAt).format('ll')}
-            </span>
-            <div className="author-blog__interaction-list">
-                <div className="author-blog__interaction-item">
-                    <LikeButton className="blog-details__interaction-item">
-                        {blogData.likes}
-                    </LikeButton>
-                    <CommentButton className="blog-details__interaction-item">
-                        {blogData.comments.length}
-                    </CommentButton>
+        <div className="blog-details__author-wrapper">
+            <Container maxWidth={MAX_WIDTH_BLOG_DETAILS}>
+                <Skeleton
+                    className="blog-details__author-details"
+                    variant="text"
+                    sx={{ fontSize: '2.4rem' }}
+                    width={250}
+                />
+
+                <div className="blog-details__author-blog-list">
+                    <Skeleton
+                        variant="text"
+                        sx={{ fontSize: '1.6rem' }}
+                        width={200}
+                    />
+                    <Grid container spacing={2} className="author-blog__list">
+                        {Array.apply(null, Array(4)).map((item, index) => (
+                            <BlogSummaryItemSkeleton key={index} />
+                        ))}
+                    </Grid>
                 </div>
-                <SaveButton className="author-blog__interaction-item" />
-            </div>
-            <Divider
-                className="hide-on-tablet-pc"
-                sx={{ margin: '3.2rem 0' }}
-            />
-        </Grid>
+            </Container>
+        </div>
     );
 };
 

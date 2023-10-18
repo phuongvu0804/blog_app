@@ -3,13 +3,17 @@ import { useSelector } from 'react-redux';
 
 import './Home.scss';
 import { NUMBER_OF_TRENDING_BLOGS } from '@/constants';
+
 import RecommendationList from './components/RecommendationList';
 import Banner from './components/Banner';
 import TrendingList from './components/TrendingList';
 import HomeSkeleton from './components/HomeSkeleton';
 
+import { Alert } from '@mui/material';
+
 const Home = () => {
     const { data, loading } = useSelector((state) => state.blogs);
+    const noti = useSelector((state) => state.noti);
     const [trendingBlogs, setTrendingBlogs] = useState([]);
 
     const filterBlogsByLikes = () => {
@@ -38,6 +42,11 @@ const Home = () => {
 
     return (
         <div>
+            {noti.content && (
+                <Alert severity={noti.type} className="noti">
+                    {noti.content}
+                </Alert>
+            )}
             <Banner />
             <TrendingList data={trendingBlogs} />
             <RecommendationList blogList={data} />

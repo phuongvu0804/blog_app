@@ -61,13 +61,15 @@
     .user-info__top {
         display: flex;
         align-items: center;
+
+        .user-info__img {
+            margin-top: 0;
+            margin-right: 2rem;
+            height: 6.8rem;
+            width: 6.8rem;
+        }
     }
 
-    .user-info__img {
-        margin-right: 2rem;
-        height: 6.8rem;
-        width: 6.8rem;
-    }
     .user-info__name {
         margin: 0;
     }

@@ -9,4 +9,8 @@
     padding-bottom: var(--padding-y);
     cursor: pointer;
     text-decoration: none;
+
+    &.main-button--skeleton {
+        background-color: rgba(0, 0, 0, 0.11);
+    }
 }

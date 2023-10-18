@@ -12,7 +12,7 @@ import BlogItem from './components/BlogItem';
 import UserInfo from './components/UserInfo';
 import DetailedUserSkeleton from './components/DetailedUserSkeleton';
 
-import { Alert } from '@mui/material';
+import { Alert, Typography } from '@mui/material';
 
 const DetailedUser = () => {
     const { id } = useParams();
@@ -48,12 +48,21 @@ const DetailedUser = () => {
         ));
     };
 
-    if (loading) {
+    if (!loading) {
         return <DetailedUserSkeleton />;
     }
 
     if (!userData) {
-        return <Alert severity="info">There is no data about this user</Alert>;
+        return (
+            <Container
+                maxWidth={MAX_WIDTH_DEFAULT_LAYOUT}
+                className="user__container"
+            >
+                <Typography variant="h4" sx={{ marginTop: 2 }}>
+                    There is no data about this user
+                </Typography>
+            </Container>
+        );
     }
 
     return (
@@ -61,7 +70,11 @@ const DetailedUser = () => {
             maxWidth={MAX_WIDTH_DEFAULT_LAYOUT}
             className="user__container"
         >
-            {noti.content && <Alert severity={noti.type}>{noti.content}</Alert>}
+            {noti.content && (
+                <Alert severity={noti.type} className="noti">
+                    {noti.content}
+                </Alert>
+            )}
             <div className="user__wrapper">
                 <h1>{userData.name}</h1>
                 <UserInfo className="hide-on-pc" data={userData} />

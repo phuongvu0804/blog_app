@@ -9,19 +9,101 @@ import Image from '@/components/Image';
 import SaveButton from '@/components/buttons/SaveButton';
 import LikeButton from '@/components/buttons/LikeButton';
 import CommentButton from '@/components/buttons/CommentButton';
+import { LikeButtonSkeleton } from '@/components/buttons/LikeButton';
+import { CommentButtonSkeleton } from '@/components/buttons/CommentButton';
+import { SaveButtonSkeleton } from '@/components/buttons/SaveButton';
 
-import { IconButton } from '@mui/material';
+import { IconButton, Skeleton } from '@mui/material';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Container } from '@mui/system';
 
+export const BlogSkeleton = () => {
+    return (
+        <Container
+            maxWidth={MAX_WIDTH_BLOG_DETAILS}
+            className="blog-details__wrapper"
+        >
+            <Skeleton
+                variant="text"
+                className="blog-details__title"
+                width={300}
+            />
+            <div className="blog-details__author">
+                <div className="blog-details__author-img">
+                    <Skeleton variant="circular" width={40} height={40} />
+                </div>
+                <div className="blog-details__author-info">
+                    <Skeleton
+                        variant="text"
+                        sx={{ fontSize: '1.6rem' }}
+                        width={200}
+                    />
+                    <Skeleton
+                        variant="text"
+                        sx={{ fontSize: '1.4rem' }}
+                        width={100}
+                    />
+                </div>
+            </div>
+            <div className="blog-details__interaction">
+                <div className="blog-details__interaction-left">
+                    <LikeButtonSkeleton
+                        component="button"
+                        className="blog-details__interaction-item"
+                        sx={{ border: 'none' }}
+                    />
+                    <CommentButtonSkeleton
+                        component="button"
+                        className="blog-details__interaction-item"
+                        sx={{ border: 'none' }}
+                    />
+                </div>
+                <div className="blog-details__interaction-right">
+                    <SaveButtonSkeleton />
+                </div>
+            </div>
+            <Container
+                maxWidth={MAX_WIDTH_BLOG_DETAILS}
+                className="blog-details__content"
+            >
+                <Skeleton variant="rounded" width={'100%'} height={300} />
+                <Skeleton
+                    variant="text"
+                    sx={{ fontSize: '2rem', marginTop: '4rem' }}
+                />
+                {Array.apply(null, Array(10)).map((item, index) => (
+                    <Skeleton
+                        key={index}
+                        variant="text"
+                        sx={{ fontSize: '2rem' }}
+                    />
+                ))}
+                <div className="blog-details__interaction">
+                    <div className="blog-details__interaction-left">
+                        <LikeButtonSkeleton
+                            component="button"
+                            className="blog-details__interaction-item"
+                            sx={{ border: 'none' }}
+                        />
+                        <CommentButtonSkeleton
+                            component="button"
+                            className="blog-details__interaction-item"
+                            sx={{ border: 'none' }}
+                        />
+                    </div>
+                    <div className="blog-details__interaction-right">
+                        <SaveButtonSkeleton />
+                    </div>
+                </div>
+            </Container>
+        </Container>
+    );
+};
+
 const Blog = ({ blogData }) => {
     const [onSaved, setOnSaved] = useState(false);
-
-    // if (!blogData) {
-    //     return <p>no blog</p>;
-    // }
 
     return (
         <Container

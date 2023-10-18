@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import './MainButton.scss';
-import { Link } from 'react-router-dom';
 import { Skeleton } from '@mui/material';
 
-export const MainButtonSkeleton = ({ className }) => {
+export const MainButtonSkeleton = ({ className, ...props }) => {
     return (
         <Skeleton
             component="button"
             variant="rounded"
-            className={`main-button${className ? className : ''}`}
+            className={`main-button main-button--skeleton ${
+                className ? className : ''
+            }`}
+            {...props}
         />
     );
 };

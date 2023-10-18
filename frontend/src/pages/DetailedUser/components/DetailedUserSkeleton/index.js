@@ -23,6 +23,7 @@ const DetailedUserSkeleton = () => {
             <div className="user__wrapper">
                 <Skeleton
                     className="user__title"
+                    component="h1"
                     variant="rounded"
                     width={310}
                     height={52}

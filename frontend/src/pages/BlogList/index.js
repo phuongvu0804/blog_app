@@ -8,7 +8,7 @@ import BlogItem from '@/components/BlogItem';
 import BlogListSkeleton from './components/BlogListSkeleton';
 import RecommendationTopics from '@/components/RecommendationTopics';
 
-import { Alert, Grid } from '@mui/material';
+import { Alert, Grid, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 
 const BlogList = () => {
@@ -18,8 +18,30 @@ const BlogList = () => {
 
     if (loading) {
         return <BlogListSkeleton />;
-    } else if (!data.length) {
-        return <Alert severity="info">There is currently no blog</Alert>;
+    }
+
+    if (!data.length) {
+        return (
+            <Container
+                maxWidth={MAX_WIDTH_DEFAULT_LAYOUT}
+                className="blog-list__container"
+            >
+                <Grid container spacing={6}>
+                    <Grid item xs={12} md={8} className="blog-list__wrapper">
+                        <Typography variant="h4" sx={{ marginTop: 2 }}>
+                            There is no currently no blog
+                        </Typography>
+                    </Grid>
+                    <Grid
+                        item
+                        md={4}
+                        className="blog-list__wrapper hide-on-tablet-mobile"
+                    >
+                        <RecommendationTopics className="blog-list__topics" />
+                    </Grid>
+                </Grid>
+            </Container>
+        );
     }
 
     return (
@@ -27,7 +49,11 @@ const BlogList = () => {
             maxWidth={MAX_WIDTH_DEFAULT_LAYOUT}
             className="blog-list__container"
         >
-            {noti.content && <Alert severity={noti.type}>{noti.content}</Alert>}
+            {noti.content && (
+                <Alert severity={noti.type} className="noti">
+                    {noti.content}
+                </Alert>
+            )}
             <Grid container spacing={6}>
                 <Grid item xs={12} md={8} className="blog-list__wrapper">
                     {data.map((blog) => (

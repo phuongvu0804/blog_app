@@ -25,12 +25,13 @@ export const BlogItemSkeleton = ({ className }) => {
                     />
                     <Skeleton
                         className="blog-item__title"
+                        component="h4"
                         variant="text"
                         sx={{ fontSize: '2rem' }}
-                        width={230}
                     />
                     <Skeleton
                         className="blog-item__content"
+                        component="p"
                         variant="rounded"
                         width={556}
                         height={72}

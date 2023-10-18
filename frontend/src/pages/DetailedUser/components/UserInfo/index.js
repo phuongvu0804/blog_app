@@ -29,6 +29,7 @@ export const UserInfoSkeleton = ({ className }) => {
                     <Skeleton
                         className="user-info__description"
                         variant="rounded"
+                        width={200}
                         height={80}
                     />
                 </div>
