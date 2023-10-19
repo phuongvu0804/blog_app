@@ -50,7 +50,6 @@ blogsRouter.post(
 
       res.status(201).json(createdBlog);
     } catch (exception) {
-      console.log("running in  catch", exception);
       next(exception);
     }
   }
@@ -84,7 +83,14 @@ blogsRouter.put(
     const updatedBlog = await Blog.findOneAndUpdate({ _id: id }, update, {
       new: true,
     });
-    res.json(updatedBlog);
+
+    if (updatedBlog) {
+      return res.json(updatedBlog);
+    } else {
+      return res
+        .status(404)
+        .json({ error: "This blog is not existed in the system anymore" });
+    }
   }
 );
 

@@ -9,6 +9,7 @@ import GlobalStyles from '@/components/GlobalStyles';
 import blogReducer from '@/reducers/blogReducer';
 import notiSlice from '@/reducers/notiReducer';
 import userSlice from '@/reducers/userReducer';
+import authorSlice from '@/reducers/authorReducer';
 import Loading from '@/pages/Loading';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,6 +19,7 @@ const store = configureStore({
         blogs: blogReducer,
         noti: notiSlice,
         user: userSlice,
+        author: authorSlice,
     },
 });
 

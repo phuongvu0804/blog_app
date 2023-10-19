@@ -9,10 +9,9 @@ import userService from '@/services/user.js';
 import { setNoti } from '@/reducers/notiReducer';
 
 import BlogItem from './components/BlogItem';
-import UserInfo from './components/UserInfo';
 import DetailedUserSkeleton from './components/DetailedUserSkeleton';
 
-import { Alert, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 const DetailedUser = () => {
     const { id } = useParams();
@@ -65,26 +64,7 @@ const DetailedUser = () => {
         );
     }
 
-    return (
-        <Container
-            maxWidth={MAX_WIDTH_DEFAULT_LAYOUT}
-            className="user__container"
-        >
-            {noti.content && (
-                <Alert severity={noti.type} className="noti">
-                    {noti.content}
-                </Alert>
-            )}
-            <div className="user__wrapper">
-                <h1>{userData.name}</h1>
-                <UserInfo className="hide-on-pc" data={userData} />
-                <div className="user__blog-list">{renderBlogs()}</div>
-            </div>
-            <div className="user__wrapper hide-on-tablet-mobile">
-                <UserInfo data={userData} />
-            </div>
-        </Container>
-    );
+    return <div className="user__blog-list">{renderBlogs()}</div>;
 };
 
 export default DetailedUser;

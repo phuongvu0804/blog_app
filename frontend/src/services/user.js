@@ -12,4 +12,9 @@ const getUserById = async (id) => {
     return response.data;
 };
 
-export default { getAll, getUserById };
+const updateUser = async (id, update) => {
+    const response = await axios.put(`${baseUrl}/${id}`, update);
+    return response.data;
+};
+
+export default { getAll, getUserById, updateUser };

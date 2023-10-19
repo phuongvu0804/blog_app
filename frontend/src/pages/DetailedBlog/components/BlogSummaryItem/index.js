@@ -110,7 +110,10 @@ const BlogSummaryItem = ({ blogData, authorName, authorId }) => {
                         {blogData.comments.length}
                     </CommentButton>
                 </div>
-                <SaveButton className="author-blog__interaction-item" />
+                <SaveButton
+                    className="author-blog__interaction-item"
+                    blogId={blogData.id}
+                />
             </div>
             <Divider
                 className="hide-on-tablet-pc"

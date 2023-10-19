@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunka=self.webpackChunka||[]).push([[285],{6285:function(n,u,e){e.r(u),e.d(u,{default:function(){return t}});e(2791);var r=e(184),t=function(){return(0,r.jsx)("div",{children:"Login"})}}}]);
-//# sourceMappingURL=285.264e0992.chunk.js.map

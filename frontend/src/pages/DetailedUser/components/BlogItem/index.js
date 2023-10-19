@@ -66,7 +66,7 @@ const BlogItem = ({ data }) => {
             </Link>
             <div className="blog-item__bottom">
                 <LikeButton>{data.likes}</LikeButton>
-                <SaveButton className="blog-item__btn" />
+                <SaveButton className="blog-item__btn" blogId={data.id} />
             </div>
         </div>
     );

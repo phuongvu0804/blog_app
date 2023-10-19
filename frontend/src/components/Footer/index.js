@@ -18,7 +18,6 @@ const footerList = [
 ];
 
 export const FooterSkeleton = ({ className }) => {
-    console.log(footerList.length);
     return (
         <div className={`footer ${className ? className : ''}`}>
             {Array.apply(null, Array(footerList.length)).map((item, index) => (

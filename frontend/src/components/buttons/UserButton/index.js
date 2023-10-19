@@ -44,7 +44,7 @@ const UserButton = ({ user }) => {
         {
             text: 'Profile',
             icon: PersonOutlineOutlinedIcon,
-            to: `/users/${user?.id}`,
+            to: '/profile',
             variant: 'text',
             className: '',
         },

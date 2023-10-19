@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/64.7bdaf576.chunk.js","mappings":"4JAQA,EAJiB,WACb,OAAOA,EAAAA,EAAAA,KAAA,OAAAC,SAAK,YAChB,C","sources":["pages/UserList/index.js"],"sourcesContent":["import React from 'react';\n\nimport './UserList.scss';\n\nconst UserList = () => {\n    return <div>UserList</div>;\n};\n\nexport default UserList;\n"],"names":["_jsx","children"],"sourceRoot":""}

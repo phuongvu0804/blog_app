@@ -8,7 +8,6 @@ import { LOCAL_STORAGE_KEY } from '@/constants';
 const initialState = {
     loading: false,
     data: null,
-    savedBlogs: [],
     likedBlogs: [],
     error: null,
 };
@@ -45,10 +44,12 @@ export const fetchUserDataById = (id) => {
             const userDetails = await userService.getUserById(id);
             dispatch(getUserDataSuccess(userDetails));
         } catch (err) {
-            setNoti({
-                content: err.message,
-                type: 'error',
-            });
+            dispatch(
+                setNoti({
+                    content: err.message,
+                    type: 'error',
+                }),
+            );
             dispatch(getUserDataFail(err));
         }
     };
@@ -66,10 +67,12 @@ export const fetchUserDataByUserName = (username) => {
 
             dispatch(getUserDataSuccess(userDetails[0]));
         } catch (err) {
-            setNoti({
-                content: err.message,
-                type: 'error',
-            });
+            dispatch(
+                setNoti({
+                    content: err.message,
+                    type: 'error',
+                }),
+            );
 
             dispatch(getUserDataFail(err));
         }
@@ -94,10 +97,34 @@ export const actLogin = (user, navigate) => {
                 navigate('/');
             }, 2000);
         } catch (err) {
-            setNoti({
-                content: err.message,
-                type: 'error',
+            dispatch(
+                setNoti({
+                    content: err.message,
+                    type: 'error',
+                }),
+            );
+
+            dispatch(getUserDataFail(err));
+        }
+    };
+};
+
+export const actSaveBlog = (userId, blogId) => {
+    return async (dispatch) => {
+        dispatch(getUserDataRequest());
+
+        try {
+            const response = await userService.updateUser(userId, {
+                blogId,
             });
+            dispatch(getUserDataSuccess(response));
+        } catch (err) {
+            dispatch(
+                setNoti({
+                    content: err.message,
+                    type: 'error',
+                }),
+            );
 
             dispatch(getUserDataFail(err));
         }
