@@ -4,7 +4,6 @@ import MuiTabs from './components/MuiTabs';
 
 const Profile = () => {
     const { data } = useSelector((state) => state.user);
-
     return <MuiTabs data={data} />;
 };
 

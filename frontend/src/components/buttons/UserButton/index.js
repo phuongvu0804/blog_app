@@ -1,22 +1,27 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Popover from '@mui/material/Popover';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import './UserButton.scss';
+import { handleConvertBinaryData } from '@/utils/binaryDataUtils';
+
 import { Button, IconButton } from '@mui/material';
 import Image from '@/components/Image';
-import images from '@/assets/images';
 import { LOCAL_STORAGE_KEY } from '@/constants';
 import { useDispatch } from 'react-redux';
 import { removeUser } from '@/reducers/userReducer';
+import { navbarListWithUser } from '@/constants';
 
 const UserButton = ({ user }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const userSrc = handleConvertBinaryData(user.image?.data);
+
     const profileLinks = [
         {
             content: 'Become a member',
@@ -40,24 +45,27 @@ const UserButton = ({ user }) => {
         },
     ];
 
-    const profileButtons = [
+    const topButtonsInitialValue = [
         {
-            text: 'Profile',
+            name: 'Profile',
             icon: PersonOutlineOutlinedIcon,
-            to: '/profile',
-            variant: 'text',
-            className: '',
-        },
-        {
-            text: 'Stories',
-            icon: DescriptionOutlinedIcon,
-            to: '/',
+            link: '/profile',
             variant: 'text',
             className: '',
         },
     ];
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [topButtons, setTopButtons] = useState(topButtonsInitialValue);
+
+    useEffect(() => {
+        if (window.innerWidth <= 739) {
+            setTopButtons([...topButtons, ...navbarListWithUser]);
+        } else {
+            setTopButtons(topButtonsInitialValue);
+        }
+    }, [window.innerWidth]);
+
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -70,7 +78,7 @@ const UserButton = ({ user }) => {
     const handleLogOut = () => {
         localStorage.removeItem(LOCAL_STORAGE_KEY);
         handleClose();
-
+        navigate('/');
         dispatch(removeUser());
     };
 
@@ -81,7 +89,7 @@ const UserButton = ({ user }) => {
         if (user) {
             return (
                 <div className="profile-popover__top-wrapper">
-                    {profileButtons.map((item, index) => {
+                    {topButtons.map((item, index) => {
                         const Icon = item.icon;
                         return (
                             <Button
@@ -90,11 +98,11 @@ const UserButton = ({ user }) => {
                                 }`}
                                 key={index}
                                 component={Link}
-                                to={item.to}
-                                variant={item.variant}
+                                to={item.link}
+                                variant={item.variant || 'text'}
                                 startIcon={item.icon ? <Icon /> : ''}
                             >
-                                {item.text}
+                                {item.name}
                             </Button>
                         );
                     })}
@@ -140,7 +148,7 @@ const UserButton = ({ user }) => {
                 onClick={handleClick}
                 className="header__profile-btn"
             >
-                <Image src={images.userAvatar} />
+                <Image src={userSrc} />
                 <KeyboardArrowDownOutlinedIcon />
             </IconButton>
             <Popover

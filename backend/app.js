@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const multer = require("multer");
 require("dotenv").config();
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -9,6 +10,9 @@ const logger = require("./utils/logger");
 const blogsRouter = require("./controllers/blogs");
 const usersRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 mongoose.set("strictQuery", false);
 
@@ -28,7 +32,7 @@ app.use(express.json());
 app.use(express.static("build"));
 
 app.use("/api/blogs", blogsRouter);
-app.use("/api/users", usersRouter);
+app.use("/api/users", upload.single("image"), usersRouter);
 app.use("/api/login", loginRouter);
 app.use(middleware.errorHandler);
 app.use(middleware.unknownEndpoint);

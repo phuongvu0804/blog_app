@@ -5,8 +5,14 @@ const login = async (user) => {
     return response.data;
 };
 
-const signUp = async (user) => {
-    const response = await axios.post('/api/users', user);
+const signUp = async (formData) => {
+    console.log('signUp', formData);
+
+    const response = await axios.post('/api/users', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
     return response.data;
 };
 

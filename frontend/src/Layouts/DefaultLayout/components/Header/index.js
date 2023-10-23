@@ -11,42 +11,9 @@ import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
 import MainButton from '@/components/buttons/MainButton';
 import Logo from '@/components/Logo';
 import UserButton from '@/components/buttons/UserButton';
+import { navbarListWithUser, navbarListWithoutUser } from '@/constants';
 
 const Header = () => {
-    const navbarListWithoutUser = [
-        {
-            name: 'Blogs',
-            link: '/blogs',
-        },
-        {
-            name: 'Users',
-            link: '/users',
-        },
-        {
-            name: 'Write',
-            link: '/write',
-        },
-        {
-            name: 'Log In',
-            link: '/login',
-        },
-    ];
-
-    const navbarListWithUser = [
-        {
-            name: 'Blogs',
-            link: '/blogs',
-        },
-        {
-            name: 'Users',
-            link: '/users',
-        },
-        {
-            name: 'Write',
-            link: '/write',
-        },
-    ];
-
     const user = useSelector((state) => state.user.data);
     const [onScroll, setOnScroll] = useState(false);
     const [navbarList, setNavbarList] = useState(navbarListWithoutUser);
@@ -74,7 +41,7 @@ const Header = () => {
         } else {
             setNavbarList(navbarListWithoutUser);
         }
-    }, []);
+    }, [user]);
 
     return (
         <div

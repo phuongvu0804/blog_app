@@ -32,7 +32,7 @@ const SaveButton = ({ className, blogId }) => {
     useEffect(() => {
         let isExisted = false;
 
-        userData.savedBlogs.forEach((blog) => {
+        userData?.savedBlogs.forEach((blog) => {
             if (blog.id === blogId) {
                 return (isExisted = true);
             }

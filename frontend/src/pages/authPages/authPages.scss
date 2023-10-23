@@ -9,7 +9,7 @@ div.auth__input-group {
     width: 100%;
 
     label {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
 
     label.Mui-focused {
@@ -19,6 +19,14 @@ div.auth__input-group {
     .MuiInput-root:after {
         border-color: var(--text-color) !important;
     }
+
+    input {
+        font-size: 1.4rem;
+    }
+}
+
+p.auth__input-text {
+    font-size: 1.2rem;
 }
 
 button.auth__input-btn {

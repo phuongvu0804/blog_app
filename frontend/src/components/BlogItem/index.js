@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import './BlogItem.scss';
+import { handleConvertBinaryData } from '@/utils/binaryDataUtils';
 
 import { Box } from '@mui/system';
 import { Grid, Skeleton, Typography } from '@mui/material';
@@ -71,6 +72,7 @@ export const BlogItemSkeleton = ({ className }) => {
 };
 
 const BlogItem = ({ blog }) => {
+    const authorImageSrc = handleConvertBinaryData(blog.author?.image?.data);
     return (
         <Grid
             container
@@ -80,7 +82,7 @@ const BlogItem = ({ blog }) => {
         >
             <Grid item xs={7} sm={7} md={7} className="blog-item__left">
                 <div className="blog-item__author">
-                    <Image src={blog.author.image} />
+                    <Image src={authorImageSrc} />
                     <Typography
                         variant="h6"
                         component={Link}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './UserItem.scss';
+import { handleConvertBinaryData } from '@/utils/binaryDataUtils';
 
 import { Box, Skeleton } from '@mui/material';
 
@@ -57,6 +58,8 @@ export const UserItemSkeleton = () => {
 };
 
 const UserItem = ({ userData }) => {
+    const imageSrc = handleConvertBinaryData(userData.image?.data);
+
     return (
         <Box className="user-item">
             <div className="user-item__wrapper">
@@ -67,7 +70,7 @@ const UserItem = ({ userData }) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Image className="user-item__img" src={userData.image} />
+                    <Image className="user-item__img" src={imageSrc} />
                     <Link
                         className="hide-on-tablet-pc user-item__btn"
                         to={`/users/${userData.id}`}

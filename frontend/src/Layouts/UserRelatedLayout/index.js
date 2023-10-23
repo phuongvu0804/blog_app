@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import '@/pages/DetailedUser/DetailedUser.scss';
 import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
 import { fetchAuthorData } from '@/reducers/authorReducer';
+import { handleConvertBinaryData } from '@/utils/binaryDataUtils';
 
 import { Alert, Typography } from '@mui/material';
 
 import UserInfo from '@/pages/DetailedUser/components/UserInfo';
 import DetailedUserSkeleton from '@/pages/DetailedUser/components/DetailedUserSkeleton';
-import HeaderOnlyLayout from '@/Layouts/HeaderOnlyLayout';
+import HeaderOnlyLayout from '@/layouts/HeaderOnlyLayout';
 
 const UserRelatedLayout = ({ children }) => {
     const { id } = useParams();
@@ -26,6 +27,7 @@ const UserRelatedLayout = ({ children }) => {
     );
 
     const [data, setData] = useState(null);
+    const [imageUrl, setImageUrl] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -34,9 +36,7 @@ const UserRelatedLayout = ({ children }) => {
         if (id) {
             dispatch(fetchAuthorData(id));
         } else {
-            console.log('running user', userData);
             setData(userData);
-            setLoading(userLoading);
         }
 
         return () => {
@@ -46,11 +46,29 @@ const UserRelatedLayout = ({ children }) => {
 
     useEffect(() => {
         if (id) {
-            setData(authorData);
             setLoading(authorLoading);
         } else {
-            setData(userData);
             setLoading(userLoading);
+        }
+    }, [userLoading, authorLoading]);
+
+    useEffect(() => {
+        if (id && authorData) {
+            setData(authorData);
+            const convertedImageUrl = handleConvertBinaryData(
+                authorData?.image?.data,
+            );
+            if (convertedImageUrl) {
+                setImageUrl(convertedImageUrl);
+            }
+        } else if (!id && userData) {
+            setData(userData);
+            const convertedImageUrl = handleConvertBinaryData(
+                userData?.image?.data,
+            );
+            if (convertedImageUrl) {
+                setImageUrl(convertedImageUrl);
+            }
         }
     }, [authorData, userData]);
 
@@ -86,11 +104,15 @@ const UserRelatedLayout = ({ children }) => {
                 )}
                 <div className="user__wrapper">
                     <h1>{data.name}</h1>
-                    <UserInfo className="hide-on-pc" data={data} />
+                    <UserInfo
+                        className="hide-on-pc"
+                        data={data}
+                        image={imageUrl}
+                    />
                     {children}
                 </div>
                 <div className="user__wrapper hide-on-tablet-mobile">
-                    <UserInfo data={data} />
+                    <UserInfo data={data} image={imageUrl} />
                 </div>
             </Container>
         </HeaderOnlyLayout>

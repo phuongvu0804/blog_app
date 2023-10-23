@@ -1,28 +1,40 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Fragment, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { publicRoutes, privateRoutes } from '@/routes';
 import { LOCAL_STORAGE_KEY } from '@/constants';
 import { initializeBlogs } from '@/reducers/blogReducer';
 import { fetchUserDataByUserName } from '@/reducers/userReducer';
 
-import DefaultLayout from '@/Layouts/DefaultLayout';
+import DefaultLayout from '@/layouts/DefaultLayout';
 import NotFound from '@/pages/NotFound';
 
 function App() {
     const dispatch = useDispatch();
+    const stateUserData = useSelector((state) => state.user.data);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
+        const controller = new AbortController();
         dispatch(initializeBlogs());
+
+        return () => {
+            controller.abort();
+        };
     }, []);
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-        if (user) {
-            dispatch(fetchUserDataByUserName(user.username));
+        const parsedUser = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+
+        if (parsedUser) {
+            dispatch(fetchUserDataByUserName(parsedUser.username));
         }
     }, []);
+
+    useEffect(() => {
+        setUser(stateUserData);
+    }, [stateUserData]);
 
     const renderRoute = (route, index) => {
         const Page = route.component;
@@ -48,7 +60,7 @@ function App() {
     };
 
     const handlePrivateRoutes = () => {
-        const user = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+        console.log('handlePrivateRoutes', user);
         return privateRoutes.map((route, index) => {
             if (!user) {
                 return (

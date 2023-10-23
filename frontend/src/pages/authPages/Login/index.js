@@ -35,8 +35,6 @@ const Login = () => {
     };
 
     const handleValidate = () => {
-        let isValid = false;
-
         if (formInputs.username.length < 3) {
             return setNoti({
                 type: 'error',
@@ -51,7 +49,7 @@ const Login = () => {
             });
         }
 
-        return (isValid = true);
+        return true;
     };
 
     const handleSubmit = async (e) => {

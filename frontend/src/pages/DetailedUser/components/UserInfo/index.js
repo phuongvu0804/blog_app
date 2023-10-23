@@ -39,11 +39,13 @@ export const UserInfoSkeleton = ({ className }) => {
     );
 };
 
-const UserInfo = ({ className, data }) => {
+const UserInfo = ({ className, data, image }) => {
     return (
         <div className={`user-info__container ${className ? className : ''}`}>
             <div className="user-info__top">
-                <Image className="user-info__img" src={data.image} />
+                <div>
+                    <Image src={image} className="user-info__img" />
+                </div>
                 <div>
                     <h6 className="user-info__name">{data.name}</h6>
                     <p className="user-info__description">{data.description}</p>

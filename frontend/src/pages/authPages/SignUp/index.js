@@ -1,74 +1,69 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
 
 import authService from '@/services/auth';
 
 import { LoadingButton } from '@mui/lab';
-import { Alert, Button, FormControl, Input, InputLabel } from '@mui/material';
+import {
+    Alert,
+    Avatar,
+    Button,
+    FormControl,
+    FormHelperText,
+    TextField,
+} from '@mui/material';
 
 import '../authPages.scss';
 import { actLogin } from '@/reducers/userReducer';
+import { signUpSchema } from '@/validators/authValidator';
 
 const SignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [formInputs, setFormInputs] = useState({
-        username: '',
-        name: '',
-        password: '',
-    });
+    const [imagePreview, setImagePreview] = useState(null);
     const [noti, setNoti] = useState({
         type: 'info',
         content: null,
     });
 
-    const handleChange = (e) => {
-        setFormInputs({ ...formInputs, [e.target.name]: e.target.value });
+    const handleUploadAvatar = (e) => {
+        setFieldValue('image', e.target.files[0]);
+        setImagePreview(URL.createObjectURL(e.target.files[0]));
     };
 
-    const handleValidate = () => {
-        let isValid = false;
-
-        if (formInputs.username.length < 3) {
-            return setNoti({
-                type: 'error',
-                content: 'Username must be at least 3 characters',
-            });
-        }
-
-        if (formInputs.name.length < 3) {
-            return setNoti({
-                type: 'error',
-                content: 'Name must be at least 3 characters',
-            });
-        }
-
-        if (formInputs.password.length < 6) {
-            return setNoti({
-                type: 'error',
-                content: 'Password must be at least 6 characters',
-            });
-        }
-
-        return (isValid = true);
+    const initialValues = {
+        name: '',
+        username: '',
+        password: '',
+        description: '',
+        image: '',
     };
 
-    const handleUploadAvatar = (file) => {
-        let formData = new FormData();
-
-        console.log(file);
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const isValid = handleValidate();
-
-        if (isValid) {
-            console.log(formInputs);
+    const {
+        handleSubmit,
+        values,
+        errors,
+        touched,
+        setFieldValue,
+        handleChange,
+        handleBlur,
+    } = useFormik({
+        initialValues,
+        validationSchema: signUpSchema,
+        onSubmit: async () => {
+            let formData = new FormData();
+            for (const key in initialValues) {
+                if (key === 'image') {
+                    formData.append('image', values.image);
+                } else {
+                    formData.append(key, values[key]);
+                }
+            }
 
             try {
-                await authService.signUp(formInputs);
+                await authService.signUp(formData);
 
                 setNoti({
                     type: 'success',
@@ -79,8 +74,8 @@ const SignUp = () => {
                     dispatch(
                         actLogin(
                             {
-                                username: formInputs.username,
-                                password: formInputs.password,
+                                username: values.username,
+                                password: values.password,
                             },
                             navigate,
                         ),
@@ -92,12 +87,12 @@ const SignUp = () => {
                     content: err.response.data.error,
                 });
             }
-        }
-    };
+        },
+    });
 
-    return (
-        <form className="auth__form" onSubmit={handleSubmit}>
-            {noti.content && (
+    const renderAlert = () => {
+        return (
+            noti.content && (
                 <Alert
                     severity={noti.type}
                     className="noti"
@@ -105,49 +100,92 @@ const SignUp = () => {
                 >
                     {noti.content}
                 </Alert>
-            )}
+            )
+        );
+    };
+
+    return (
+        <form
+            method="POST"
+            className="auth__form"
+            onSubmit={handleSubmit}
+            encType="multipart/form-data"
+        >
+            {renderAlert()}
             <FormControl className="auth__input-group">
-                <InputLabel>Username</InputLabel>
-                <Input
+                <TextField
+                    variant="standard"
+                    label="Username"
                     name="username"
-                    value={formInputs.username}
+                    onBlur={handleBlur}
+                    touched={touched.username}
+                    error={errors.username && touched.username}
+                    value={values.username}
                     onChange={handleChange}
                 />
+                {errors.username && touched.username && (
+                    <FormHelperText className="auth__input-text" error>
+                        {errors.username}
+                    </FormHelperText>
+                )}
             </FormControl>
             <FormControl className="auth__input-group">
-                <InputLabel>Full name</InputLabel>
-                <Input
+                <TextField
+                    label="Full name"
                     name="name"
-                    value={formInputs.name}
+                    variant="standard"
+                    onBlur={handleBlur}
+                    touched={touched.name}
+                    error={errors.name && touched.name}
+                    value={values.name}
                     onChange={handleChange}
                 />
+                {errors.name && touched.name && (
+                    <FormHelperText className="auth__input-text" error>
+                        {errors.name}
+                    </FormHelperText>
+                )}
             </FormControl>
-            {/* <FormControl className="auth__input-group">
-                <InputLabel>Email</InputLabel>
-                <Input
-                    name="email"
-                    value={formInputs.email}
-                    onChange={handleChange}
-                />
-            </FormControl> */}
+
             <FormControl className="auth__input-group">
-                <InputLabel>Password</InputLabel>
-                <Input
+                <TextField
+                    label="Password"
+                    variant="standard"
                     name="password"
+                    onBlur={handleBlur}
+                    touched={touched.password}
+                    error={errors.password && touched.password}
                     type="password"
-                    value={formInputs.password}
+                    value={values.password}
                     onChange={handleChange}
                 />
+                {errors.password && touched.password && (
+                    <FormHelperText className="auth__input-text" error>
+                        {errors.password}
+                    </FormHelperText>
+                )}
             </FormControl>
-            {/* <FormControl className="auth__input-group">
-                <InputLabel>Bio</InputLabel>
-                <Input
+            <FormControl className="auth__input-group">
+                <TextField
+                    label="Bio"
+                    rows={3}
+                    variant="standard"
+                    multiline
                     name="description"
-                    value={formInputs.description}
+                    onBlur={handleBlur}
+                    touched={touched.description}
+                    error={errors.description && touched.description}
+                    value={values.description}
                     onChange={handleChange}
                 />
-            </FormControl> */}
-            {/* <FormControl className="auth__input-group">
+                {errors.description && touched.description && (
+                    <FormHelperText className="auth__input-text" error>
+                        {errors.description}
+                    </FormHelperText>
+                )}
+            </FormControl>
+
+            <FormControl className="auth__input-group">
                 <Button
                     variant="text"
                     component="label"
@@ -162,10 +200,16 @@ const SignUp = () => {
                         hidden
                         accept="image/*"
                         type="file"
-                        onChange={(e) => handleUploadAvatar(e.target.files[0])}
+                        name="image"
+                        onChange={handleUploadAvatar}
                     />
                 </Button>
-            </FormControl> */}
+                <Avatar
+                    alt="Remy Sharp"
+                    src={imagePreview}
+                    sx={{ margin: '1.2rem auto 0' }}
+                />
+            </FormControl>
 
             <LoadingButton
                 type="submit"

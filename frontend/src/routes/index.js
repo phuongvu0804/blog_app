@@ -1,7 +1,7 @@
 import { lazy } from 'react';
-import HeaderOnlyLayout from '@/Layouts/HeaderOnlyLayout';
-import AuthLayout from '@/Layouts/AuthLayout';
-import UserRelatedLayout from '@/Layouts/UserRelatedLayout';
+import HeaderOnlyLayout from '@/layouts/HeaderOnlyLayout';
+import AuthLayout from '@/layouts/AuthLayout';
+import UserRelatedLayout from '@/layouts/UserRelatedLayout';
 
 const Home = lazy(() => import('@/pages/Home'));
 const BlogList = lazy(() => import('@/pages/BlogList'));

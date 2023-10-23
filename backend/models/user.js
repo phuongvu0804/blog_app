@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    minLength: 50,
+    minLength: 10,
     maxLength: 200,
   },
   passwordHash: {
@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
       ref: "Blog",
     },
   ],
+  image: {
+    data: Buffer,
+    contentType: String,
+  },
 });
 
 userSchema.set("toJSON", {

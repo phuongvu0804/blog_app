@@ -1,12 +1,8 @@
 const usersRouter = require("express").Router();
 const bcrypt = require("bcrypt");
+
 const User = require("../models/user");
 const mongoose = require("mongoose");
-
-//Routes for:
-// - display all the users
-// - User:
-//     + User details
 
 usersRouter.get("/", async (req, res) => {
   const users = await User.find({}).populate(["blogs", "savedBlogs"]);
@@ -26,7 +22,7 @@ usersRouter.get("/:id", async (req, res) => {
 });
 
 usersRouter.post("/", async (req, res, next) => {
-  const { name, username, password } = req.body;
+  const { name, username, password, description } = req.body;
 
   if (!username || username.length < 3) {
     return res.status(400).json({
@@ -50,10 +46,18 @@ usersRouter.post("/", async (req, res, next) => {
 
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
+  const imageBuffer = req.file.buffer;
+  const contentType = req.get("Content-Type");
+
   const user = new User({
     username,
     name,
     passwordHash,
+    description,
+    image: {
+      data: imageBuffer,
+      contentType,
+    },
   });
 
   try {
