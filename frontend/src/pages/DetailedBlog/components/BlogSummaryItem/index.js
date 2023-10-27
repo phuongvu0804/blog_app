@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import './BlogSummaryItem.scss';
+import blogService from '@/services/blog';
+import { setNoti } from '@/reducers/notiReducer';
 
 import Image from '@/components/Image';
 import SaveButton from '@/components/buttons/SaveButton';
@@ -11,9 +13,10 @@ import CommentButton from '@/components/buttons/CommentButton';
 import { LikeButtonSkeleton } from '@/components/buttons/LikeButton';
 import { CommentButtonSkeleton } from '@/components/buttons/CommentButton';
 import { SaveButtonSkeleton } from '@/components/buttons/SaveButton';
+import Avatar from '@/components/Avatar';
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Divider, Grid, Skeleton, Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
 export const BlogSummaryItemSkeleton = () => {
     return (
@@ -74,45 +77,96 @@ export const BlogSummaryItemSkeleton = () => {
     );
 };
 
-const BlogSummaryItem = ({ blogData, authorName, authorId }) => {
+const BlogSummaryItem = ({ blogId, userData }) => {
+    const dispatch = useDispatch();
+    const [blog, setBlog] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        const fetchBlogData = async () => {
+            if (blogId) {
+                try {
+                    const blogData = await blogService.getBlogById(blogId);
+                    setBlog(blogData);
+                } catch (err) {
+                    dispatch(
+                        setNoti({
+                            type: 'error',
+                            content: err.message,
+                        }),
+                    );
+                } finally {
+                    setLoading(false);
+                }
+            }
+        };
+
+        fetchBlogData();
+        return () => {
+            controller.abort();
+        };
+    }, []);
+
+    if (!blog && !loading) {
+        return (
+            <Grid
+                item
+                xs={12}
+                sm={6}
+                md={6}
+                className="author-blog__item"
+                sx={{
+                    minHeight: '12rem',
+                }}
+            >
+                <p>Information about this blog is no longer available</p>
+            </Grid>
+        );
+    }
+
+    if (loading) {
+        return <BlogSummaryItemSkeleton />;
+    }
     return (
         <Grid item xs={12} sm={6} md={6} className="author-blog__item">
-            <Link to={`/blogs/${blogData.id}`} className="author-blog__img">
-                <Image src={blogData.image} />
+            <Link to={`/blogs/${blogId}`} className="author-blog__img">
+                <Image src={blog.image} />
             </Link>
-            <Link to={`/users/${authorId}`} className="author-blog__name">
-                <AccountCircleIcon />
-                <p>{authorName}</p>
+            <Link to={`/users/${userData.id}`} className="author-blog__name">
+                <Avatar imageData={userData?.image} />
+                <p>{userData.name}</p>
             </Link>
             <Typography
                 variant="h4"
                 component={Link}
                 className="author-blog__title"
             >
-                {blogData.title}
+                {blog.title}
             </Typography>
             <Typography
                 variant="body1"
                 component={Link}
                 className="author-blog__text"
             >
-                {blogData.content}
+                {blog.content}
             </Typography>
             <span className="author-blog__date">
-                {moment(blogData.createdAt).format('ll')}
+                {moment(blog.createdAt).format('ll')}
             </span>
             <div className="author-blog__interaction-list">
                 <div className="author-blog__interaction-item">
                     <LikeButton className="blog-details__interaction-item">
-                        {blogData.likes}
+                        {blog.likes}
                     </LikeButton>
                     <CommentButton className="blog-details__interaction-item">
-                        {blogData.comments.length}
+                        {blog.comments?.length}
                     </CommentButton>
                 </div>
                 <SaveButton
                     className="author-blog__interaction-item"
-                    blogId={blogData.id}
+                    blogId={blog.id}
                 />
             </div>
             <Divider
@@ -123,4 +177,4 @@ const BlogSummaryItem = ({ blogData, authorName, authorId }) => {
     );
 };
 
-export default BlogSummaryItem;
+export default memo(BlogSummaryItem);

@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import './UserInfo.scss';
 
 import Footer from '@/components/Footer';
-import Image from '@/components/Image';
 import { Skeleton } from '@mui/material';
 
 import { FooterSkeleton } from '@/components/Footer';
+import Avatar from '@/components/Avatar';
 
 export const UserInfoSkeleton = ({ className }) => {
     return (
@@ -39,12 +39,16 @@ export const UserInfoSkeleton = ({ className }) => {
     );
 };
 
-const UserInfo = ({ className, data, image }) => {
+const UserInfo = ({ className, data }) => {
+    console.log('UserInfo', data);
     return (
         <div className={`user-info__container ${className ? className : ''}`}>
             <div className="user-info__top">
                 <div>
-                    <Image src={image} className="user-info__img" />
+                    <Avatar
+                        imageData={data?.image}
+                        className="user-info__img"
+                    />
                 </div>
                 <div>
                     <h6 className="user-info__name">{data.name}</h6>
@@ -56,4 +60,4 @@ const UserInfo = ({ className, data, image }) => {
     );
 };
 
-export default UserInfo;
+export default memo(UserInfo);

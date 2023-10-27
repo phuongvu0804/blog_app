@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './MuiTabs.scss';
@@ -39,22 +39,14 @@ function a11yProps(index) {
 }
 
 const MuiTabs = ({ data }) => {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-    const renderPersonalBlogs = () => {
-        return data?.blogs.map((blog) => (
-            <BlogItem key={blog.id} data={blog} />
-        ));
-    };
-
-    const renderSavedBlogs = () => {
-        return data?.savedBlogs.map((blog, index) => (
-            <BlogItem key={index} data={blog} />
-        ));
+    const renderBlogs = (blogs) => {
+        return blogs.map((blog, index) => <BlogItem key={index} data={blog} />);
     };
 
     return (
@@ -74,14 +66,14 @@ const MuiTabs = ({ data }) => {
                 value={value}
                 index={0}
             >
-                {renderPersonalBlogs()}
+                {renderBlogs(data?.blogs)}
             </CustomTabPanel>
             <CustomTabPanel
                 className="profile__panel-item"
                 value={value}
                 index={1}
             >
-                {renderSavedBlogs()}
+                {renderBlogs(data?.savedBlogs)}
             </CustomTabPanel>
             <CustomTabPanel
                 className="profile__panel-item"

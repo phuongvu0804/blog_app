@@ -4,14 +4,14 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './DetailedUser.scss';
-import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
 import userService from '@/services/user.js';
 import { setNoti } from '@/reducers/notiReducer';
 
 import BlogItem from './components/BlogItem';
 import DetailedUserSkeleton from './components/DetailedUserSkeleton';
 
-import { Typography } from '@mui/material';
+import { Alert, Typography } from '@mui/material';
+import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants/appSettings';
 
 const DetailedUser = () => {
     const { id } = useParams();
@@ -64,7 +64,16 @@ const DetailedUser = () => {
         );
     }
 
-    return <div className="user__blog-list">{renderBlogs()}</div>;
+    return (
+        <div className="user__blog-list">
+            {noti.content && (
+                <Alert severity={noti.type} className="noti">
+                    {noti.content}
+                </Alert>
+            )}
+            {renderBlogs()}
+        </div>
+    );
 };
 
 export default DetailedUser;

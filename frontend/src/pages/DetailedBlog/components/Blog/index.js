@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import './Blog.scss';
-import { MAX_WIDTH_BLOG_DETAILS } from '@/constants';
+import { MAX_WIDTH_BLOG_DETAILS } from '@/constants/appSettings';
 
 import Image from '@/components/Image';
 import SaveButton from '@/components/buttons/SaveButton';
@@ -12,11 +12,11 @@ import CommentButton from '@/components/buttons/CommentButton';
 import { LikeButtonSkeleton } from '@/components/buttons/LikeButton';
 import { CommentButtonSkeleton } from '@/components/buttons/CommentButton';
 import { SaveButtonSkeleton } from '@/components/buttons/SaveButton';
+import Avatar from '@/components/Avatar';
 
 import { IconButton, Skeleton } from '@mui/material';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Container } from '@mui/system';
 
 export const BlogSkeleton = () => {
@@ -104,7 +104,6 @@ export const BlogSkeleton = () => {
 
 const Blog = ({ blogData }) => {
     const [onSaved, setOnSaved] = useState(false);
-
     return (
         <Container
             maxWidth={MAX_WIDTH_BLOG_DETAILS}
@@ -113,7 +112,10 @@ const Blog = ({ blogData }) => {
             <h1 className="blog-details__title">{blogData.title}</h1>
             <div className="blog-details__author">
                 <div className="blog-details__author-img">
-                    <AccountCircleIcon />
+                    <Avatar
+                        imageData={blogData.author?.image}
+                        alt={blogData.author?.name}
+                    />
                 </div>
                 <div className="blog-details__author-info">
                     <h6>{blogData.author?.name}</h6>

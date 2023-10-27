@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './Banner.scss';
-import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
+import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants/appSettings';
 import images from '@/assets/images';
 
 import { Skeleton } from '@mui/material';

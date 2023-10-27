@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import './RecommendationList.scss';
-import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
+import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants/appSettings';
 
 import { Container } from '@mui/system';
 import { Grid } from '@mui/material';
@@ -78,4 +78,4 @@ RecommendationList.propTypes = {
     data: PropTypes.array,
 };
 
-export default RecommendationList;
+export default memo(RecommendationList);

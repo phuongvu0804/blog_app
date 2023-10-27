@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
+import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants/appSettings';
 import './UserList.scss';
 import userService from '@/services/user.js';
 import { setNoti } from '@/reducers/notiReducer';
@@ -20,6 +20,7 @@ const UserList = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const controller = new AbortController();
         const fetchUserListData = async () => {
             try {
                 const response = await userService.getAll();
@@ -32,6 +33,10 @@ const UserList = () => {
         };
 
         fetchUserListData();
+
+        return () => {
+            controller.abort();
+        };
     }, []);
 
     if (loading) {
@@ -72,7 +77,7 @@ const UserList = () => {
                 <Grid
                     item
                     md={4}
-                    className="user-list__wrapper  hide-on-tablet-mobile"
+                    className="user-list__wrapper hide-on-tablet-mobile"
                 >
                     <RecommendationTopics />
                 </Grid>

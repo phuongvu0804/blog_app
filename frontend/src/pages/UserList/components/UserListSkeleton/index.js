@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
+import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants/appSettings';
 
 import { Grid } from '@mui/material';
 import { Container } from '@mui/system';

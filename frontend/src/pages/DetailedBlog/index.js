@@ -24,7 +24,7 @@ const DetailedBlog = () => {
     useEffect(() => {
         const controller = new AbortController();
 
-        const fetchBlogDetails = async () => {
+        const fetchData = async () => {
             try {
                 const blogData = await blogService.getBlogById(id);
                 setBlog(blogData);
@@ -35,7 +35,7 @@ const DetailedBlog = () => {
             }
         };
 
-        fetchBlogDetails();
+        fetchData();
 
         return () => {
             controller.abort();
@@ -65,7 +65,7 @@ const DetailedBlog = () => {
             )}
 
             <Blog blogData={blog} />
-            {blog.author && <UserDetails authorId={blog.author.id} />}
+            <UserDetails authorData={blog.author} />
         </div>
     );
 };

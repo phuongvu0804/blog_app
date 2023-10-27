@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import { Container } from '@mui/system';
@@ -6,8 +6,10 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { Grid, Skeleton } from '@mui/material';
 
 import './TrendingList.scss';
-import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
-import { NUMBER_OF_TRENDING_BLOGS } from '@/constants';
+import {
+    MAX_WIDTH_DEFAULT_LAYOUT,
+    NUMBER_OF_TRENDING_BLOGS,
+} from '@/constants/appSettings';
 
 import TrendingItem, { TrendingItemSkeleton } from '../TrendingItem';
 
@@ -63,9 +65,4 @@ TrendingList.propTypes = {
     data: PropTypes.array,
 };
 
-TrendingItem.propTypes = {
-    blog: PropTypes.object,
-    index: PropTypes.number,
-};
-
-export default TrendingList;
+export default memo(TrendingList);

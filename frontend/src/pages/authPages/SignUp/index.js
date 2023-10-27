@@ -1,27 +1,22 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import authService from '@/services/auth';
 
 import { LoadingButton } from '@mui/lab';
-import {
-    Alert,
-    Avatar,
-    Button,
-    FormControl,
-    FormHelperText,
-    TextField,
-} from '@mui/material';
+import { Alert, Avatar, Button, FormControl } from '@mui/material';
 
 import '../authPages.scss';
 import { actLogin } from '@/reducers/userReducer';
 import { signUpSchema } from '@/validators/authValidator';
+import InputGroup from '../components/InputGroup';
 
 const SignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { loading } = useSelector((state) => state.user);
     const [imagePreview, setImagePreview] = useState(null);
     const [noti, setNoti] = useState({
         type: 'info',
@@ -91,8 +86,8 @@ const SignUp = () => {
     });
 
     const renderAlert = () => {
-        return (
-            noti.content && (
+        if (noti.content) {
+            return (
                 <Alert
                     severity={noti.type}
                     className="noti"
@@ -100,8 +95,24 @@ const SignUp = () => {
                 >
                     {noti.content}
                 </Alert>
-            )
-        );
+            );
+        }
+    };
+
+    const renderInputs = () => {
+        const inputList = ['username', 'name', 'password', 'description'];
+
+        return inputList.map((input, item) => (
+            <InputGroup
+                key={item}
+                inputName={input}
+                values={values[input]}
+                errors={errors[input]}
+                touched={touched[input]}
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+            />
+        ));
     };
 
     return (
@@ -112,78 +123,7 @@ const SignUp = () => {
             encType="multipart/form-data"
         >
             {renderAlert()}
-            <FormControl className="auth__input-group">
-                <TextField
-                    variant="standard"
-                    label="Username"
-                    name="username"
-                    onBlur={handleBlur}
-                    touched={touched.username}
-                    error={errors.username && touched.username}
-                    value={values.username}
-                    onChange={handleChange}
-                />
-                {errors.username && touched.username && (
-                    <FormHelperText className="auth__input-text" error>
-                        {errors.username}
-                    </FormHelperText>
-                )}
-            </FormControl>
-            <FormControl className="auth__input-group">
-                <TextField
-                    label="Full name"
-                    name="name"
-                    variant="standard"
-                    onBlur={handleBlur}
-                    touched={touched.name}
-                    error={errors.name && touched.name}
-                    value={values.name}
-                    onChange={handleChange}
-                />
-                {errors.name && touched.name && (
-                    <FormHelperText className="auth__input-text" error>
-                        {errors.name}
-                    </FormHelperText>
-                )}
-            </FormControl>
-
-            <FormControl className="auth__input-group">
-                <TextField
-                    label="Password"
-                    variant="standard"
-                    name="password"
-                    onBlur={handleBlur}
-                    touched={touched.password}
-                    error={errors.password && touched.password}
-                    type="password"
-                    value={values.password}
-                    onChange={handleChange}
-                />
-                {errors.password && touched.password && (
-                    <FormHelperText className="auth__input-text" error>
-                        {errors.password}
-                    </FormHelperText>
-                )}
-            </FormControl>
-            <FormControl className="auth__input-group">
-                <TextField
-                    label="Bio"
-                    rows={3}
-                    variant="standard"
-                    multiline
-                    name="description"
-                    onBlur={handleBlur}
-                    touched={touched.description}
-                    error={errors.description && touched.description}
-                    value={values.description}
-                    onChange={handleChange}
-                />
-                {errors.description && touched.description && (
-                    <FormHelperText className="auth__input-text" error>
-                        {errors.description}
-                    </FormHelperText>
-                )}
-            </FormControl>
+            {renderInputs()}
 
             <FormControl className="auth__input-group">
                 <Button
@@ -215,6 +155,7 @@ const SignUp = () => {
                 type="submit"
                 className="auth__input-btn"
                 variant="contained"
+                loading={loading}
             >
                 Submit
             </LoadingButton>

@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import './UserDetails.scss';
-import { setNoti } from '@/reducers/notiReducer';
-import { MAX_WIDTH_BLOG_DETAILS } from '@/constants';
-import userService from '@/services/user';
+import { MAX_WIDTH_BLOG_DETAILS } from '@/constants/appSettings';
+import Avatar from '@/components/Avatar';
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Button, Grid, Skeleton } from '@mui/material';
 import { Container } from '@mui/system';
 
@@ -41,41 +39,25 @@ export const UserDetailsSkeleton = () => {
     );
 };
 
-const UserDetails = ({ authorId }) => {
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const fetchUserDetails = async () => {
-            try {
-                const userDetails = await userService.getUserById(authorId);
-                setUser(userDetails);
-            } catch (err) {
-                setNoti({
-                    type: 'error',
-                    content: err.message,
-                });
-            }
-        };
-
-        fetchUserDetails();
-    }, []);
-
+const UserDetails = ({ authorData }) => {
     return (
         <div className="blog-details__author-wrapper">
             <Container maxWidth={MAX_WIDTH_BLOG_DETAILS}>
                 <div className="blog-details__author-details">
-                    <AccountCircleIcon />
-                    <h4>Written by {user?.name}</h4>
+                    <Avatar
+                        imageData={authorData?.image}
+                        alt={authorData.name}
+                    />
+                    <h4>Written by {authorData.name}</h4>
                 </div>
                 <div className="blog-details__author-blog-list">
-                    <h3>More from {user?.name}</h3>
+                    <h3>More from {authorData.name}</h3>
                     <Grid container spacing={2} className="author-blog__list">
-                        {user?.blogs.map((blog) => (
+                        {authorData.blogs.map((blog, index) => (
                             <BlogSummaryItem
-                                key={blog.id}
-                                blogData={blog}
-                                authorName={user?.name}
-                                authorId={user?.id}
+                                key={index}
+                                blogId={blog}
+                                userData={authorData}
                             />
                         ))}
                     </Grid>
@@ -87,11 +69,11 @@ const UserDetails = ({ authorId }) => {
                     variant="outlined"
                     className="hide-on-tablet-pc blog-details__more-btn"
                 >
-                    See all from {user?.name}
+                    See all from {authorData.name}
                 </Button>
             </Container>
         </div>
     );
 };
 
-export default UserDetails;
+export default memo(UserDetails);

@@ -23,10 +23,14 @@ a.author-blog__name {
     margin-bottom: 1.6rem;
     display: flex;
     align-items: center;
+    object-fit: cover;
+    object-position: center;
 
-    svg {
-        font-size: 2rem;
+    img {
+        height: 2rem;
+        width: 2rem;
         margin-right: 0.8rem;
+        border-radius: 50%;
     }
 
     p {

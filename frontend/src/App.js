@@ -1,19 +1,21 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Fragment, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Fragment, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { publicRoutes, privateRoutes } from '@/routes';
-import { LOCAL_STORAGE_KEY } from '@/constants';
 import { initializeBlogs } from '@/reducers/blogReducer';
 import { fetchUserDataByUserName } from '@/reducers/userReducer';
+import { setTokenExpiration } from '@/reducers/tokenReducer';
+import { parseJwt } from '@/utils/functions';
+import { LOCAL_STORAGE_KEY } from '@/constants/appSettings';
 
 import DefaultLayout from '@/layouts/DefaultLayout';
 import NotFound from '@/pages/NotFound';
+import AuthVerify from '@/common/AuthVerify';
 
 function App() {
     const dispatch = useDispatch();
-    const stateUserData = useSelector((state) => state.user.data);
-    const [user, setUser] = useState(null);
+    const user = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 
     useEffect(() => {
         const controller = new AbortController();
@@ -24,67 +26,63 @@ function App() {
         };
     }, []);
 
+    //Check if user has logged in already
     useEffect(() => {
-        const parsedUser = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+        if (user) {
+            const decodedToken = parseJwt(user.token);
 
-        if (parsedUser) {
-            dispatch(fetchUserDataByUserName(parsedUser.username));
-        }
-    }, []);
-
-    useEffect(() => {
-        setUser(stateUserData);
-    }, [stateUserData]);
-
-    const renderRoute = (route, index) => {
-        const Page = route.component;
-        let Layout = DefaultLayout;
-
-        if (route.layout) {
-            Layout = route.layout;
-        } else if (route.layout === null) {
-            Layout = Fragment;
-        }
-
-        return (
-            <Route
-                key={index}
-                path={route.path}
-                element={
-                    <Layout>
-                        <Page />
-                    </Layout>
-                }
-            />
-        );
-    };
-
-    const handlePrivateRoutes = () => {
-        console.log('handlePrivateRoutes', user);
-        return privateRoutes.map((route, index) => {
-            if (!user) {
-                return (
-                    <Route
-                        key={index}
-                        path={route.path}
-                        element={<Navigate replace to="/login" />}
-                    />
+            if (decodedToken && decodedToken.exp) {
+                const tokenExpiration = decodedToken.exp * 1000;
+                dispatch(setTokenExpiration(tokenExpiration));
+                dispatch(fetchUserDataByUserName(user.username));
+            } else {
+                console.log(
+                    'JWT does not contain an expiration claim ("exp").',
                 );
             }
+        }
+    }, [user]);
 
-            return renderRoute(route, index);
+    const renderRoutes = (routes) => {
+        return routes.map((route, index) => {
+            const Page = route.component;
+            let Layout = DefaultLayout;
+
+            if (route.layout) {
+                Layout = route.layout;
+            } else if (route.layout === null) {
+                Layout = Fragment;
+            }
+
+            return (
+                <Route
+                    key={index}
+                    path={route.path}
+                    element={
+                        <Layout>
+                            <Page />
+                        </Layout>
+                    }
+                />
+            );
         });
     };
 
     return (
         <div className="App">
             <Routes>
-                {publicRoutes.map((route, index) => {
-                    return renderRoute(route, index);
-                })}
-                {handlePrivateRoutes()}
+                {renderRoutes(publicRoutes)}
+                {user ? (
+                    renderRoutes(privateRoutes)
+                ) : (
+                    <Route
+                        path="*"
+                        element={<Navigate replace to="/login" />}
+                    />
+                )}
                 <Route path="*" element={<NotFound />} />
             </Routes>
+            <AuthVerify />
         </div>
     );
 }

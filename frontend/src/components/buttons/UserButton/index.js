@@ -1,61 +1,27 @@
-import { useEffect, useState } from 'react';
+import { Fragment, memo, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import Popover from '@mui/material/Popover';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { Avatar, Button, IconButton } from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import './UserButton.scss';
 import { handleConvertBinaryData } from '@/utils/binaryDataUtils';
+import { actLogOut } from '@/reducers/userReducer';
+import { navbarListWithUser } from '@/constants/navbarLists';
+import { profileLinks, topButtonsInitialValue } from '@/constants/userButtons';
 
-import { Button, IconButton } from '@mui/material';
 import Image from '@/components/Image';
-import { LOCAL_STORAGE_KEY } from '@/constants';
-import { useDispatch } from 'react-redux';
-import { removeUser } from '@/reducers/userReducer';
-import { navbarListWithUser } from '@/constants';
 
 const UserButton = ({ user }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const userSrc = handleConvertBinaryData(user.image?.data);
-
-    const profileLinks = [
-        {
-            content: 'Become a member',
-            to: '/',
-        },
-        {
-            content: 'Create a Mastodon account',
-            to: '/',
-        },
-        {
-            content: 'Apply for author verification',
-            to: '/',
-        },
-        {
-            content: 'Apply to the Partner Program',
-            to: '/',
-        },
-        {
-            content: 'Gift a membership',
-            to: '/',
-        },
-    ];
-
-    const topButtonsInitialValue = [
-        {
-            name: 'Profile',
-            icon: PersonOutlineOutlinedIcon,
-            link: '/profile',
-            variant: 'text',
-            className: '',
-        },
-    ];
-
     const [topButtons, setTopButtons] = useState(topButtonsInitialValue);
+    const userSrc = handleConvertBinaryData(user?.image?.data);
 
     useEffect(() => {
         if (window.innerWidth <= 739) {
@@ -76,10 +42,8 @@ const UserButton = ({ user }) => {
     };
 
     const handleLogOut = () => {
-        localStorage.removeItem(LOCAL_STORAGE_KEY);
+        dispatch(actLogOut(navigate));
         handleClose();
-        navigate('/');
-        dispatch(removeUser());
     };
 
     const open = Boolean(anchorEl);
@@ -125,18 +89,35 @@ const UserButton = ({ user }) => {
                         <Button
                             className="profile-popover__btn--contained"
                             variant="contained"
+                            component={Link}
+                            to="/signup"
                         >
                             Sign up
                         </Button>
                         <Button
                             className="profile-popover__btn--outlined"
                             variant="outlined"
+                            component={Link}
+                            to="/login"
                         >
                             Sign in
                         </Button>
                     </div>
                 </div>
             );
+        }
+    };
+
+    const renderAvatar = () => {
+        if (user) {
+            return (
+                <Fragment>
+                    <Image src={userSrc} />
+                    <KeyboardArrowDownOutlinedIcon />
+                </Fragment>
+            );
+        } else {
+            return <AccountCircleIcon className="header__profile-avatar" />;
         }
     };
 
@@ -148,8 +129,7 @@ const UserButton = ({ user }) => {
                 onClick={handleClick}
                 className="header__profile-btn"
             >
-                <Image src={userSrc} />
-                <KeyboardArrowDownOutlinedIcon />
+                {renderAvatar()}
             </IconButton>
             <Popover
                 id={id}
@@ -177,4 +157,8 @@ const UserButton = ({ user }) => {
     );
 };
 
-export default UserButton;
+UserButton.propTypes = {
+    user: PropTypes.object,
+};
+
+export default memo(UserButton);

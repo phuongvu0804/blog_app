@@ -9,7 +9,10 @@ const signUpSchema = yup.object().shape({
         .string()
         .min(3)
         .required('Username must be at least 3 characters'),
-    password: yup.string().required('Password must be at least 6 characters'),
+    password: yup
+        .string()
+        .min(6)
+        .required('Password must be at least 6 characters'),
     description: yup
         .string()
         .min(10)
@@ -34,4 +37,15 @@ const signUpSchema = yup.object().shape({
         }),
 });
 
-export { signUpSchema };
+const logInSchema = yup.object().shape({
+    username: yup
+        .string()
+        .min(3)
+        .required('Username must be at least 3 characters'),
+    password: yup
+        .string()
+        .min(6)
+        .required('Password must be at least 6 characters'),
+});
+
+export { signUpSchema, logInSchema };

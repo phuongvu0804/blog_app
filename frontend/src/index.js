@@ -10,6 +10,7 @@ import blogReducer from '@/reducers/blogReducer';
 import notiSlice from '@/reducers/notiReducer';
 import userSlice from '@/reducers/userReducer';
 import authorSlice from '@/reducers/authorReducer';
+import tokenSlice from '@/reducers/tokenReducer';
 import Loading from '@/pages/Loading';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,19 +21,20 @@ const store = configureStore({
         noti: notiSlice,
         user: userSlice,
         author: authorSlice,
+        token: tokenSlice,
     },
 });
 
 root.render(
-    <React.StrictMode>
-        <Suspense fallback={<Loading />}>
-            <Router>
-                <Provider store={store}>
-                    <GlobalStyles>
-                        <App />
-                    </GlobalStyles>
-                </Provider>
-            </Router>
-        </Suspense>
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <Suspense fallback={<Loading />}>
+        <Router>
+            <Provider store={store}>
+                <GlobalStyles>
+                    <App />
+                </GlobalStyles>
+            </Provider>
+        </Router>
+    </Suspense>,
+    // </React.StrictMode>,
 );

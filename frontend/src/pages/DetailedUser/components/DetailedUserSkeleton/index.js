@@ -1,10 +1,10 @@
 import React from 'react';
 
 import './DetailedUserSkeleton.scss';
-import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
+import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants/appSettings';
 
-import { UserInfoSkeleton } from '../UserInfo';
 import { BlogItemSkeleton } from '../BlogItem';
+import { UserInfoSkeleton } from '@/layouts/UserRelatedLayout/components/UserInfo';
 
 import { Container, Skeleton } from '@mui/material';
 

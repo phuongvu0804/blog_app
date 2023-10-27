@@ -3,7 +3,7 @@ const { createSlice } = require('@reduxjs/toolkit');
 import userService from '@/services/user';
 import authService from '@/services/auth';
 import { setNoti } from './notiReducer';
-import { LOCAL_STORAGE_KEY } from '@/constants';
+import { LOCAL_STORAGE_KEY } from '@/constants/appSettings';
 
 const initialState = {
     loading: false,
@@ -81,8 +81,6 @@ export const fetchUserDataByUserName = (username) => {
 
 export const actLogin = (user, navigate) => {
     return async (dispatch) => {
-        dispatch(getUserDataRequest());
-
         try {
             const userDetails = await authService.login(user);
 
@@ -106,6 +104,14 @@ export const actLogin = (user, navigate) => {
 
             dispatch(getUserDataFail(err));
         }
+    };
+};
+
+export const actLogOut = (navigate) => {
+    return async (dispatch) => {
+        dispatch(removeUser());
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
+        navigate('/');
     };
 };
 

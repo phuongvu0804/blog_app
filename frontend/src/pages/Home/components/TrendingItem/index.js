@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 import './TrendingItem.scss';
 
@@ -9,7 +10,7 @@ import { Box } from '@mui/system';
 
 import LikeButton from '@/components/buttons/LikeButton';
 import DotDivider from '@/components/Divider';
-import Image from '@/components/Image';
+import Avatar from '@/components/Avatar';
 
 export const TrendingItemSkeleton = () => {
     return (
@@ -63,9 +64,10 @@ const TrendingItem = ({ blog, index }) => {
                     to={`/users/${blog.author.id}`}
                     className="trending-item__author"
                 >
-                    <Image
+                    <Avatar
                         className="trending-item__author-img"
-                        src={blog.author.image}
+                        imageData={blog.author.image}
+                        alt={blog.author.name}
                     />
                     <span className="trending-item__author-name">
                         {blog.author.name}
@@ -87,4 +89,10 @@ const TrendingItem = ({ blog, index }) => {
         </Grid>
     );
 };
-export default TrendingItem;
+
+TrendingItem.propTypes = {
+    blog: PropTypes.object,
+    index: PropTypes.number,
+};
+
+export default memo(TrendingItem);

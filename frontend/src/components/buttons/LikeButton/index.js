@@ -5,7 +5,7 @@ import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import { Button, Skeleton } from '@mui/material';
 
 import './LikeButton.scss';
-import { LOCAL_STORAGE_KEY } from '@/constants';
+import { LOCAL_STORAGE_KEY } from '@/constants/appSettings';
 
 export const LikeButtonSkeleton = ({ className, ...props }) => {
     return (

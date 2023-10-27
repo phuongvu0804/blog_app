@@ -13,6 +13,7 @@ import DotDivider from '@/components/Divider';
 import LikeButton from '@/components/buttons/LikeButton';
 import SaveButton from '@/components/buttons/SaveButton';
 import { SaveButtonSkeleton } from '@/components/buttons/SaveButton';
+import Avatar from '@/components/Avatar';
 
 export const BlogItemSkeleton = ({ className }) => {
     return (
@@ -72,7 +73,6 @@ export const BlogItemSkeleton = ({ className }) => {
 };
 
 const BlogItem = ({ blog }) => {
-    const authorImageSrc = handleConvertBinaryData(blog.author?.image?.data);
     return (
         <Grid
             container
@@ -82,7 +82,7 @@ const BlogItem = ({ blog }) => {
         >
             <Grid item xs={7} sm={7} md={7} className="blog-item__left">
                 <div className="blog-item__author">
-                    <Image src={authorImageSrc} />
+                    <Avatar src={blog.author?.image} />
                     <Typography
                         variant="h6"
                         component={Link}

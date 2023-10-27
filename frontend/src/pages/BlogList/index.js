@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import './BlogList.scss';
-import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
+import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants/appSettings';
 
 import BlogItem from '@/components/BlogItem';
 import BlogListSkeleton from './components/BlogListSkeleton';
@@ -12,9 +12,8 @@ import { Alert, Grid, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 
 const BlogList = () => {
-    const blogState = useSelector((state) => state.blogs);
+    const { data, loading } = useSelector((state) => state.blogs);
     const noti = useSelector((state) => state.noti);
-    const { data, loading } = blogState;
 
     if (loading) {
         return <BlogListSkeleton />;

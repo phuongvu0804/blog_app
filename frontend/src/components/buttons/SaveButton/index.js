@@ -8,7 +8,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import './SaveButton.scss';
-import { LOCAL_STORAGE_KEY } from '@/constants';
+import { LOCAL_STORAGE_KEY } from '@/constants/appSettings';
 import { actSaveBlog } from '@/reducers/userReducer';
 
 export const SaveButtonSkeleton = ({ className }) => {

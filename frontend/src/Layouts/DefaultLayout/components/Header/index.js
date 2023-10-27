@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -6,17 +6,19 @@ import { Container } from '@mui/system';
 import { Button } from '@mui/material';
 
 import './Header.scss';
-import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
+import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants/appSettings';
+import {
+    navbarListWithoutUser,
+    navbarListWithUser,
+} from '@/constants/navbarLists';
 
 import MainButton from '@/components/buttons/MainButton';
 import Logo from '@/components/Logo';
 import UserButton from '@/components/buttons/UserButton';
-import { navbarListWithUser, navbarListWithoutUser } from '@/constants';
 
 const Header = () => {
     const user = useSelector((state) => state.user.data);
     const [onScroll, setOnScroll] = useState(false);
-    const [navbarList, setNavbarList] = useState(navbarListWithoutUser);
 
     useEffect(() => {
         const onScroll = () => {
@@ -35,12 +37,37 @@ const Header = () => {
         };
     }, []);
 
-    useEffect(() => {
+    const renderButtons = useCallback(() => {
         if (user) {
-            setNavbarList(navbarListWithUser);
+            return <UserButton user={user} />;
         } else {
-            setNavbarList(navbarListWithoutUser);
+            return (
+                <MainButton
+                    to="/signup"
+                    className="default-layout__navbar-button"
+                >
+                    Get started
+                </MainButton>
+            );
         }
+    }, [user]);
+
+    const renderNavBar = useCallback(() => {
+        let navBar = navbarListWithoutUser;
+
+        if (user) {
+            navBar = navbarListWithUser;
+        }
+        return navBar.map((item, index) => (
+            <Button
+                component={Link}
+                to={item.link}
+                key={index}
+                className="default-layout__navbar-item"
+            >
+                {item.name}
+            </Button>
+        ));
     }, [user]);
 
     return (
@@ -67,26 +94,8 @@ const Header = () => {
                     }}
                     className="default-layout__navbar"
                 >
-                    {navbarList.map((item, index) => (
-                        <Button
-                            component={Link}
-                            to={item.link}
-                            key={index}
-                            className="default-layout__navbar-item"
-                        >
-                            {item.name}
-                        </Button>
-                    ))}
-                    {user ? (
-                        <UserButton user={user} />
-                    ) : (
-                        <MainButton
-                            to="/signup"
-                            className="default-layout__navbar-button"
-                        >
-                            Get started
-                        </MainButton>
-                    )}
+                    {renderNavBar()}
+                    {renderButtons()}
                 </Container>
             </Container>
         </div>

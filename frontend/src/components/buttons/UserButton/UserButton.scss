@@ -11,6 +11,13 @@ button.header__profile-btn {
         object-fit: cover;
         object-position: center;
     }
+
+    .header__profile-avatar {
+        width: 3.2rem;
+        height: 3.2rem;
+        margin-left: 0;
+    }
+
     svg {
         font-size: 1.4rem;
         margin-left: 0.4rem;
@@ -52,9 +59,10 @@ button.header__profile-btn {
         margin-top: 1.6rem;
     }
 
-    button {
+    a {
         font-size: 1.4rem;
         font-weight: 300;
+        text-align: center;
         padding: 0.5rem 1.2rem;
         width: 100%;
         border-radius: 99em;
@@ -62,16 +70,21 @@ button.header__profile-btn {
     }
 }
 
-button.profile-popover__btn--contained {
+a.profile-popover__btn--contained {
+    display: block;
     background-color: var(--green);
     color: var(--white);
 
     &:hover {
         background-color: var(--green-hover);
     }
+
+    &:first-child {
+        margin-bottom: 0.8rem;
+    }
 }
 
-button.profile-popover__btn--outlined {
+a.profile-popover__btn--outlined {
     color: var(--text-color);
     border-color: var(--text-color);
 

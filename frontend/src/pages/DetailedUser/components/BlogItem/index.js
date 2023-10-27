@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
@@ -72,4 +72,4 @@ const BlogItem = ({ data }) => {
     );
 };
 
-export default BlogItem;
+export default memo(BlogItem);

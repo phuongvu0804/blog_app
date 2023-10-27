@@ -41,7 +41,12 @@ export const initializeBlogs = () => {
         dispatch(getBlogsRequest());
         try {
             const blogs = await blogService.getAll();
-            dispatch(getBlogsSuccess(blogs));
+
+            const sortedBlogsByLike = [...blogs].sort(
+                (a, b) => b.likes - a.likes,
+            );
+
+            dispatch(getBlogsSuccess(sortedBlogsByLike));
         } catch (err) {
             dispatch(getBlogsFail(err.response.data.error));
             setNoti({

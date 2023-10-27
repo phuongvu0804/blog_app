@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import './AuthLayout.scss';
-import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants';
+import { MAX_WIDTH_DEFAULT_LAYOUT } from '@/constants/appSettings';
 
 import { Container } from '@mui/system';
 
@@ -10,7 +10,6 @@ import Logo from '@/components/Logo';
 
 const AuthLayout = ({ children }) => {
     const { pathname } = useLocation();
-
     const direction = { path: '/login' };
     let title = '';
     if (pathname === '/login') {

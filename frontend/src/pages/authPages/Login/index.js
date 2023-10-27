@@ -1,106 +1,69 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useEffect, useState } from 'react';
+import { useFormik } from 'formik';
 
 import '../authPages.scss';
 import { actLogin } from '@/reducers/userReducer';
+import { logInSchema } from '@/validators/authValidator';
 
-import { Alert, FormControl, Input, InputLabel } from '@mui/material';
+import { Alert } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import InputGroup from '../components/InputGroup';
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const login = useSelector((state) => state.user);
-    const [formInputs, setFormInputs] = useState({
-        username: '',
-        password: '',
-    });
-    const [noti, setNoti] = useState({
-        type: 'info',
-        content: null,
-    });
+    const { error, loading } = useSelector((state) => state.user);
 
-    useEffect(() => {
-        if (login.error) {
-            setNoti({
-                type: 'error',
-                content: login.error.response.data.error,
-            });
-        }
-    }, [login.error]);
+    const { handleSubmit, values, errors, touched, handleChange, handleBlur } =
+        useFormik({
+            initialValues: {
+                username: '',
+                password: '',
+            },
+            validationSchema: logInSchema,
+            onSubmit: async () => {
+                dispatch(actLogin(values, navigate));
+            },
+        });
 
-    const handleChange = (e) => {
-        setFormInputs({ ...formInputs, [e.target.name]: e.target.value });
-    };
-
-    const handleValidate = () => {
-        if (formInputs.username.length < 3) {
-            return setNoti({
-                type: 'error',
-                content: 'Username must be at least 3 characters',
-            });
-        }
-
-        if (formInputs.password.length < 6) {
-            return setNoti({
-                type: 'error',
-                content: 'Password must be at least 6 characters',
-            });
-        }
-
-        return true;
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const isValid = handleValidate();
-
-        if (isValid) {
-            dispatch(
-                actLogin(
-                    {
-                        username: formInputs.username,
-                        password: formInputs.password,
-                    },
-                    navigate,
-                ),
+    const renderNoti = () => {
+        if (error) {
+            return (
+                <Alert
+                    severity="error"
+                    className="noti"
+                    sx={{ fontSize: '1.6rem', marginBottom: '3rem' }}
+                >
+                    {error}
+                </Alert>
             );
         }
     };
 
+    const renderInputs = () => {
+        const inputList = ['username', 'password'];
+        return inputList.map((input, item) => (
+            <InputGroup
+                key={item}
+                inputName={input}
+                values={values[input]}
+                errors={errors[input]}
+                touched={touched[input]}
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+            />
+        ));
+    };
+
     return (
         <form className="auth__form" onSubmit={handleSubmit}>
-            {noti.content && (
-                <Alert
-                    severity={noti.type}
-                    className="noti"
-                    sx={{ fontSize: '1.6rem', marginBottom: '3rem' }}
-                >
-                    {noti.content}
-                </Alert>
-            )}
-
-            <FormControl className="auth__input-group">
-                <InputLabel>Username</InputLabel>
-                <Input
-                    name="username"
-                    value={formInputs.username}
-                    onChange={handleChange}
-                />
-            </FormControl>
-            <FormControl className="auth__input-group">
-                <InputLabel>Password</InputLabel>
-                <Input
-                    name="password"
-                    type="password"
-                    value={formInputs.password}
-                    onChange={handleChange}
-                />
-            </FormControl>
+            {renderNoti()}
+            {renderInputs()}
 
             <LoadingButton
-                loading={login.loading}
+                loading={loading}
                 type="submit"
                 className="auth__input-btn"
                 variant="contained"
