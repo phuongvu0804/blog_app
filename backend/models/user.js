@@ -35,6 +35,12 @@ const userSchema = new mongoose.Schema({
       ref: "Blog",
     },
   ],
+  likedBlogs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Blog",
+    },
+  ],
   image: {
     data: Buffer,
     contentType: String,

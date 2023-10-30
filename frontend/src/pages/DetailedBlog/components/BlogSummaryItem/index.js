@@ -1,22 +1,23 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
 
 import './BlogSummaryItem.scss';
 import blogService from '@/services/blog';
 import { setNoti } from '@/reducers/notiReducer';
 
 import Image from '@/components/Image';
-import SaveButton from '@/components/buttons/SaveButton';
-import LikeButton from '@/components/buttons/LikeButton';
+import LikeButtonWithHOC from '@/components/buttons/LikeButtonWithHOC';
 import CommentButton from '@/components/buttons/CommentButton';
-import { LikeButtonSkeleton } from '@/components/buttons/LikeButton';
 import { CommentButtonSkeleton } from '@/components/buttons/CommentButton';
-import { SaveButtonSkeleton } from '@/components/buttons/SaveButton';
 import Avatar from '@/components/Avatar';
+import { LikeButtonSkeleton } from '@/components/buttons/LikeButtonWithHOC';
+import SaveButtonWithHOC, {
+    SaveButtonSkeleton,
+} from '@/components/buttons/SaveButtonWithHOC';
 
 import { Divider, Grid, Skeleton, Typography } from '@mui/material';
-import { useDispatch } from 'react-redux';
 
 export const BlogSummaryItemSkeleton = () => {
     return (
@@ -157,14 +158,17 @@ const BlogSummaryItem = ({ blogId, userData }) => {
             </span>
             <div className="author-blog__interaction-list">
                 <div className="author-blog__interaction-item">
-                    <LikeButton className="blog-details__interaction-item">
-                        {blog.likes}
-                    </LikeButton>
+                    <LikeButtonWithHOC
+                        blogId={blog.id}
+                        className="blog-details__interaction-item"
+                    >
+                        {blog.likes ? blog.likes.length : 0}
+                    </LikeButtonWithHOC>
                     <CommentButton className="blog-details__interaction-item">
                         {blog.comments?.length}
                     </CommentButton>
                 </div>
-                <SaveButton
+                <SaveButtonWithHOC
                     className="author-blog__interaction-item"
                     blogId={blog.id}
                 />

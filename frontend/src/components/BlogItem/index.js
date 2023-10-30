@@ -3,17 +3,16 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import './BlogItem.scss';
-import { handleConvertBinaryData } from '@/utils/binaryDataUtils';
 
 import { Box } from '@mui/system';
 import { Grid, Skeleton, Typography } from '@mui/material';
 
 import Image from '@/components/Image';
 import DotDivider from '@/components/Divider';
-import LikeButton from '@/components/buttons/LikeButton';
-import SaveButton from '@/components/buttons/SaveButton';
-import { SaveButtonSkeleton } from '@/components/buttons/SaveButton';
 import Avatar from '@/components/Avatar';
+import LikeButtonWithHOC from '@/components/buttons/LikeButtonWithHOC';
+import { SaveButtonSkeleton } from '@/components/buttons/SaveButtonWithHOC';
+import SaveButtonWithHOC from '@/components/buttons/SaveButtonWithHOC';
 
 export const BlogItemSkeleton = ({ className }) => {
     return (
@@ -120,11 +119,15 @@ const BlogItem = ({ blog }) => {
                             {moment(blog.createdAt).format('ll')}
                         </span>
                         <DotDivider />
-                        <LikeButton className="blog-item__like">
-                            {blog.likes}
-                        </LikeButton>
+
+                        <LikeButtonWithHOC
+                            className="blog-item__like"
+                            blogId={blog.id}
+                        >
+                            {blog.likes ? blog.likes.length : 0}
+                        </LikeButtonWithHOC>
                     </Box>
-                    <SaveButton blogId={blog.id} />
+                    <SaveButtonWithHOC blogId={blog.id} />
                 </Box>
             </Grid>
             <Grid item xs={5} sm={5} md={5} className="blog-item__right">

@@ -6,13 +6,13 @@ import './Blog.scss';
 import { MAX_WIDTH_BLOG_DETAILS } from '@/constants/appSettings';
 
 import Image from '@/components/Image';
-import SaveButton from '@/components/buttons/SaveButton';
-import LikeButton from '@/components/buttons/LikeButton';
 import CommentButton from '@/components/buttons/CommentButton';
-import { LikeButtonSkeleton } from '@/components/buttons/LikeButton';
 import { CommentButtonSkeleton } from '@/components/buttons/CommentButton';
-import { SaveButtonSkeleton } from '@/components/buttons/SaveButton';
 import Avatar from '@/components/Avatar';
+import LikeButtonWithHOC from '@/components/buttons/LikeButtonWithHOC';
+import { LikeButtonSkeleton } from '@/components/buttons/LikeButtonWithHOC';
+import SaveButtonWithHOC from '@/components/buttons/SaveButtonWithHOC';
+import { SaveButtonSkeleton } from '@/components/buttons/SaveButtonWithHOC';
 
 import { IconButton, Skeleton } from '@mui/material';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
@@ -124,15 +124,18 @@ const Blog = ({ blogData }) => {
             </div>
             <div className="blog-details__interaction">
                 <div className="blog-details__interaction-left">
-                    <LikeButton className="blog-details__interaction-item">
-                        {blogData.likes}
-                    </LikeButton>
+                    <LikeButtonWithHOC
+                        blogId={blogData.id}
+                        className="blog-details__interaction-item"
+                    >
+                        {blogData.likes ? blogData.likes.length : 0}
+                    </LikeButtonWithHOC>
                     <CommentButton className="blog-details__interaction-item">
                         {blogData.comments.length}
                     </CommentButton>
                 </div>
                 <div className="blog-details__interaction-right">
-                    <SaveButton blogId={blogData.id} />
+                    <SaveButtonWithHOC blogId={blogData.id} />
                 </div>
             </div>
             <Container
@@ -143,9 +146,12 @@ const Blog = ({ blogData }) => {
                 <p>{blogData.content}</p>
                 <div className="blog-details__interaction">
                     <div className="blog-details__interaction-left">
-                        <LikeButton className="blog-details__interaction-item">
-                            {blogData.likes}
-                        </LikeButton>
+                        <LikeButtonWithHOC
+                            blogId={blogData.id}
+                            className="blog-details__interaction-item"
+                        >
+                            {blogData.likes ? blogData.likes.length : 0}
+                        </LikeButtonWithHOC>
                         <CommentButton className="blog-details__interaction-item">
                             {blogData.comments.length}
                         </CommentButton>

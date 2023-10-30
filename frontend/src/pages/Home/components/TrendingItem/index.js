@@ -8,9 +8,9 @@ import './TrendingItem.scss';
 import { Grid, Skeleton } from '@mui/material';
 import { Box } from '@mui/system';
 
-import LikeButton from '@/components/buttons/LikeButton';
 import DotDivider from '@/components/Divider';
 import Avatar from '@/components/Avatar';
+import LikeButtonWithHOC from '@/components/buttons/LikeButtonWithHOC';
 
 export const TrendingItemSkeleton = () => {
     return (
@@ -66,7 +66,7 @@ const TrendingItem = ({ blog, index }) => {
                 >
                     <Avatar
                         className="trending-item__author-img"
-                        imageData={blog.author.image}
+                        imageData={blog.author?.image}
                         alt={blog.author.name}
                     />
                     <span className="trending-item__author-name">
@@ -81,9 +81,12 @@ const TrendingItem = ({ blog, index }) => {
                         {moment(blog.createdAt).format('ll')}
                     </p>
                     <DotDivider />
-                    <LikeButton className="trending-item__like">
-                        {blog.likes}
-                    </LikeButton>
+                    <LikeButtonWithHOC
+                        blogId={blog.id}
+                        className="trending-item__like"
+                    >
+                        {blog.likes ? blog.likes.length : 0}
+                    </LikeButtonWithHOC>
                 </Box>
             </div>
         </Grid>

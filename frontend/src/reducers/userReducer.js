@@ -2,8 +2,11 @@ const { createSlice } = require('@reduxjs/toolkit');
 
 import userService from '@/services/user';
 import authService from '@/services/auth';
+import blogService from '@/services/blog';
+
 import { setNoti } from './notiReducer';
 import { LOCAL_STORAGE_KEY } from '@/constants/appSettings';
+import { getBlogsSuccess } from './blogReducer';
 
 const initialState = {
     loading: false,
@@ -120,10 +123,35 @@ export const actSaveBlog = (userId, blogId) => {
         dispatch(getUserDataRequest());
 
         try {
-            const response = await userService.updateUser(userId, {
-                blogId,
+            const response = await userService.updateUser(blogId, {
+                userId,
             });
             dispatch(getUserDataSuccess(response));
+        } catch (err) {
+            dispatch(
+                setNoti({
+                    content: err.message,
+                    type: 'error',
+                }),
+            );
+
+            dispatch(getUserDataFail(err));
+        }
+    };
+};
+
+export const actLikeBlog = (userId, blogId) => {
+    return async (dispatch) => {
+        dispatch(getUserDataRequest());
+
+        try {
+            const response = await userService.handleLikeBlog(blogId, {
+                userId,
+            });
+            dispatch(getUserDataSuccess(response));
+
+            const blogs = await blogService.getAll();
+            dispatch(getBlogsSuccess(blogs));
         } catch (err) {
             dispatch(
                 setNoti({

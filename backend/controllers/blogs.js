@@ -11,7 +11,7 @@ const middleware = require("../utils/middleware");
 
 //Route for displaying all blogs
 blogsRouter.get("/", async (req, res) => {
-  const blogs = await Blog.find({}).populate("author");
+  const blogs = await Blog.find({}).populate(["author", "likes"]);
   res.json(blogs);
 });
 
@@ -46,7 +46,10 @@ blogsRouter.post(
       user.blogs = user.blogs.concat(createdBlog._id);
       await user.save();
 
-      createdBlog = await Blog.findById(createdBlog._id).populate("author");
+      createdBlog = await Blog.findById(createdBlog._id).populate([
+        "author",
+        "likes",
+      ]);
 
       res.status(201).json(createdBlog);
     } catch (exception) {
@@ -58,7 +61,7 @@ blogsRouter.post(
 //Route for displaying a detailed blog
 blogsRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
-  const blog = await Blog.findById(id).populate("author");
+  const blog = await Blog.findById(id).populate(["author", "likes"]);
   if (blog) {
     res.json(blog);
   } else {

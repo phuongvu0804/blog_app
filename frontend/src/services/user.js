@@ -13,8 +13,13 @@ const getUserById = async (id) => {
 };
 
 const updateUser = async (id, update) => {
-    const response = await axios.put(`${baseUrl}/${id}`, update);
+    const response = await axios.put(`${baseUrl}/save/${id}`, update);
     return response.data;
 };
 
-export default { getAll, getUserById, updateUser };
+const handleLikeBlog = async (blogId, userId) => {
+    const response = await axios.put(`${baseUrl}/like/${blogId}`, userId);
+    return response.data;
+};
+
+export default { getAll, getUserById, updateUser, handleLikeBlog };

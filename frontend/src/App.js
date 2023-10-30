@@ -16,7 +16,6 @@ import AuthVerify from '@/common/AuthVerify';
 function App() {
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-
     useEffect(() => {
         const controller = new AbortController();
         dispatch(initializeBlogs());

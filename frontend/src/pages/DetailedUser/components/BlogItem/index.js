@@ -7,10 +7,11 @@ import './BlogItem.scss';
 import { Skeleton } from '@mui/material';
 
 import Image from '@/components/Image';
-import SaveButton from '@/components/buttons/SaveButton';
-import LikeButton from '@/components/buttons/LikeButton';
-import { LikeButtonSkeleton } from '@/components/buttons/LikeButton';
-import { SaveButtonSkeleton } from '@/components/buttons/SaveButton';
+import { LikeButtonSkeleton } from '@/components/buttons/LikeButtonWithHOC';
+import LikeButtonWithHOC from '@/components/buttons/LikeButtonWithHOC';
+import SaveButtonWithHOC, {
+    SaveButtonSkeleton,
+} from '@/components/buttons/SaveButtonWithHOC';
 
 export const BlogItemSkeleton = ({ className }) => {
     return (
@@ -65,8 +66,13 @@ const BlogItem = ({ data }) => {
                 </div>
             </Link>
             <div className="blog-item__bottom">
-                <LikeButton>{data.likes}</LikeButton>
-                <SaveButton className="blog-item__btn" blogId={data.id} />
+                <LikeButtonWithHOC blogId={data.id}>
+                    {data.likes ? data.likes.length : 0}
+                </LikeButtonWithHOC>
+                <SaveButtonWithHOC
+                    className="blog-item__btn"
+                    blogId={data.id}
+                />
             </div>
         </div>
     );
